@@ -1,0 +1,39 @@
+{
+  "name": "chingu-connect",
+  "version": "0.0.0",
+  "description": "A tool to connect learners. Designed serendipity",
+  "main": "index.js",
+  "scripts": {
+    "start": "node app.js",
+    "dev": "nodemon app.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/chingu-x/chingu-connect.git"
+  },
+  "keywords": [
+    "chingu",
+    "chingu-connect",
+    "learning"
+  ],
+  "author": "Chingu X",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/chingu-x/chingu-connect/issues"
+  },
+  "homepage": "https://github.com/chingu-x/chingu-connect#readme",
+  "dependencies": {
+    "axios": "^0.17.1",
+    "body-parser": "^1.18.2",
+    "cors": "^2.8.4",
+    "dotenv": "^5.0.1",
+    "express": "^4.16.2"
+  },
+  "devDependencies": {
+    "eslint": "^3.19.0",
+    "eslint-config-airbnb-base": "^11.3.2",
+    "eslint-plugin-import": "^2.7.0",
+    "ngrok": "^2.2.24",
+    "nodemon": "^1.14.11"
+  }
+}
