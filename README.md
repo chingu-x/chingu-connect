@@ -1,2 +1,2 @@
 # chingu-connect
-A tool to connect learners. Designed serendipity
+A tool to optimally connect learners. Designed serendipity
