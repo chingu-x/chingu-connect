@@ -2,7 +2,10 @@ const express = require('express');
 const bp = require('body-parser');
 const cors = require('cors');
 const mongoose = require('mongoose');
+const expressGraphQL = require('express-graphql');
 require('dotenv').config();
+
+const schema = require('./db/schema/schema');
 
 const app = express();
 const port = process.env.PORT || 8008;
@@ -22,6 +25,12 @@ app.use(
     optionsSuccessStatus: 200,
   }),
 );
+
+// -- GRAPHQL -- //
+app.use('/graphql', expressGraphQL({
+  schema,
+  graphiql: true,
+}));
 
 // -- DATABASE -- //
 mongoose.Promise = global.Promise;
