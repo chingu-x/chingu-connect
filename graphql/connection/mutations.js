@@ -4,7 +4,7 @@ const ConnectionType = require('../connection/connectionType');
 
 const { GraphQLString, GraphQLInt, GraphQLNonNull } = graphql;
 
-const ConnectionMutations = {
+module.exports = {
   addConnection: {
     type: ConnectionType,
     args: {
@@ -18,5 +18,3 @@ const ConnectionMutations = {
     },
   },
 };
-
-module.exports = ConnectionMutations;

@@ -4,10 +4,7 @@ const UserType = require('./userType');
 
 const { GraphQLString, GraphQLNonNull } = graphql;
 
-/**
- * Mutations allow for CRUD functionality
- */
-const UserMutations = {
+module.exports = {
   addUser: {
     type: UserType,
     args: {
@@ -19,5 +16,3 @@ const UserMutations = {
     },
   },
 };
-
-module.exports = UserMutations;
