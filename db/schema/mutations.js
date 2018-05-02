@@ -4,14 +4,17 @@ const UserType = require('./userType');
 
 const { GraphQLObjectType, GraphQLString, GraphQLNonNull } = graphql;
 
+/**
+ * Mutations allow for CRUD functionality
+ */
 const mutation = new GraphQLObjectType({
   name: 'Mutation',
   fields: {
     addUser: {
       type: UserType,
       args: {
-        username: { type: new GraphQLNonNull(GraphQLString) }, // NonNull helper requires a value
-        email: { type: new GraphQLNonNull(GraphQLString) }, // NonNull helper requires a value
+        username: { type: new GraphQLNonNull(GraphQLString) },
+        email: { type: new GraphQLNonNull(GraphQLString) },
       },
       resolve(parentValue, { username, email }) {
         return (new User({ username, email })).save();

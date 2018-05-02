@@ -2,6 +2,10 @@ const graphql = require('graphql');
 const User = require('../models/user');
 const UserType = require('./userType');
 
+/**
+ * Include graphQL types
+ * NonNull helper requires a value
+ */
 const { GraphQLObjectType, GraphQLList, GraphQLID, GraphQLNonNull } = graphql;
 
 const RootQuery = new GraphQLObjectType({

@@ -29,7 +29,7 @@ app.use(
 // -- GRAPHQL -- //
 app.use('/graphql', expressGraphQL({
   schema,
-  graphiql: true,
+  graphiql: true, // dev tool to make requests against server (only intended for dev environment)
 }));
 
 // -- DATABASE -- //
