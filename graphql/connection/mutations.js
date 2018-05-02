@@ -5,7 +5,7 @@ const ConnectionType = require('../connection/connectionType');
 const { GraphQLString, GraphQLInt, GraphQLNonNull } = graphql;
 
 module.exports = {
-  addConnection: {
+  createConnection: {
     type: ConnectionType,
     args: {
       title: { type: new GraphQLNonNull(GraphQLString) },

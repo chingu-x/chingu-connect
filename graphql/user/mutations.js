@@ -5,7 +5,7 @@ const UserType = require('./userType');
 const { GraphQLString, GraphQLNonNull } = graphql;
 
 module.exports = {
-  addUser: {
+  createUser: {
     type: UserType,
     args: {
       username: { type: new GraphQLNonNull(GraphQLString) },

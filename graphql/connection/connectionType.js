@@ -5,7 +5,7 @@ const UserType = require('../user/userType');
 const { GraphQLObjectType, GraphQLString, GraphQLID, GraphQLInt } = graphql;
 
 const ConnectionType = new GraphQLObjectType({
-  name: 'Connect',
+  name: 'Connection',
   fields: {
     id: { type: GraphQLID },
     owner: {
