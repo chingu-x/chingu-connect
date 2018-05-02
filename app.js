@@ -27,10 +27,10 @@ app.use(
 );
 
 // -- GRAPHQL -- //
-app.use('/graphql', expressGraphQL({
-  schema,
-  graphiql: process.env.GRAPHIQL === 'true', // dev tool to make requests against server (only intended for dev environment)
-}));
+app.use(
+  '/graphql',
+  expressGraphQL({ schema, graphiql: process.env.GRAPHIQL || false }),
+);
 
 // -- DATABASE -- //
 mongoose.Promise = global.Promise;
