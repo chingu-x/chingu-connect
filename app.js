@@ -5,7 +5,7 @@ const mongoose = require('mongoose');
 const expressGraphQL = require('express-graphql');
 require('dotenv').config();
 
-const schema = require('./graphql/schema/schema');
+const schema = require('./graphql/schema');
 
 const app = express();
 const port = process.env.PORT || 8008;
