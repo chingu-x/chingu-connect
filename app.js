@@ -5,7 +5,7 @@ const mongoose = require('mongoose');
 const expressGraphQL = require('express-graphql');
 require('dotenv').config();
 
-const schema = require('./db/schema/schema');
+const schema = require('./graphql/schema/schema');
 
 const app = express();
 const port = process.env.PORT || 8008;
@@ -29,7 +29,7 @@ app.use(
 // -- GRAPHQL -- //
 app.use('/graphql', expressGraphQL({
   schema,
-  graphiql: true, // dev tool to make requests against server (only intended for dev environment)
+  graphiql: process.env.GRAPHIQL === 'true', // dev tool to make requests against server (only intended for dev environment)
 }));
 
 // -- DATABASE -- //
