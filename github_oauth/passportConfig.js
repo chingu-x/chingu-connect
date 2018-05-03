@@ -15,13 +15,13 @@ const strategy = new GithubStrategy(
   async (
     accessToken,
     refreshToken,
-    { _json: { login, email, avatar_url } },
+    { id, _json: { login, avatar_url } },
     done,
   ) => {
     try {
       const user = (
-        await User.findOne({ username: login }) ||
-        new User({ username: login, avatar: avatar_url, email }).save()
+        await User.findOne({ github_id: id }) ||
+        await new User({ github_id: id, username: login, avatar: avatar_url }).save()
       );
       return done(null, user);
     } catch (error) { return done(error, null); }
@@ -30,7 +30,7 @@ const strategy = new GithubStrategy(
 
 // initialize session middleware on the oAuth router
 // TODO: wtf is router doing?
-// it is a proxy stand-in for adding global middlewre to app?
+// it is a proxy stand-in for adding global middleware to app?
 router.use(
   session({
     secret: process.env.SESSION_SECRET,
