@@ -5,8 +5,7 @@
   "main": "index.js",
   "scripts": {
     "start": "node app.js",
-    "dev": "nodemon app.js",
-    "ngrok": "ngrok http 8008"
+    "dev": "echo 'http://localhost:8008/' && nodemon app.js"
   },
   "repository": {
     "type": "git",
@@ -30,8 +29,11 @@
     "dotenv": "^5.0.1",
     "express": "^4.16.2",
     "express-graphql": "^0.6.12",
+    "express-session": "^1.15.6",
     "graphql": "^0.13.2",
-    "mongoose": "^5.0.17"
+    "mongoose": "^5.0.17",
+    "passport": "^0.4.0",
+    "passport-github2": "^0.1.11"
   },
   "devDependencies": {
     "eslint": "^3.19.0",

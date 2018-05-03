@@ -1,9 +1,11 @@
+require('dotenv').config();
 const express = require('express');
 const bp = require('body-parser');
 const cors = require('cors');
 const mongoose = require('mongoose');
 const expressGraphQL = require('express-graphql');
-require('dotenv').config();
+const passportConfig = require('./github_oauth/passportConfig');
+const githubController = require('./github_oauth/githubController');
 
 const schema = require('./graphql/schema');
 
@@ -25,6 +27,7 @@ app.use(
     optionsSuccessStatus: 200,
   }),
 );
+app.use(passportConfig);
 
 // -- GRAPHQL -- //
 app.use(
@@ -40,4 +43,5 @@ mongoose.connect(
 );
 
 // -- CONTROLLERS -- //
-
+app.use('/auth', githubController);
+app.use('/', (req, res) => res.send('ok'));
