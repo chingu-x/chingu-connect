@@ -7,7 +7,7 @@ const expressGraphQL = require('express-graphql');
 const passportConfig = require('./github_oauth/passportConfig');
 const githubController = require('./github_oauth/githubController');
 
-const schema = require('./graphql/schema/schema');
+const schema = require('./graphql/schema');
 
 const app = express();
 const port = process.env.PORT || 8008;
@@ -30,10 +30,10 @@ app.use(
 app.use(passportConfig);
 
 // -- GRAPHQL -- //
-app.use('/graphql', expressGraphQL({
-  schema,
-  graphiql: process.env.GRAPHIQL === 'true', // dev tool to make requests against server (only intended for dev environment)
-}));
+app.use(
+  '/graphql',
+  expressGraphQL({ schema, graphiql: process.env.GRAPHIQL || false }),
+);
 
 // -- DATABASE -- //
 mongoose.Promise = global.Promise;
