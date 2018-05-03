@@ -1,5 +1,5 @@
 const graphql = require('graphql');
-const Connection = require('../../db/connection');
+const User = require('../../db/user');
 const UserType = require('../user/userType');
 
 const { GraphQLObjectType, GraphQLString, GraphQLID, GraphQLInt } = graphql;
@@ -10,11 +10,11 @@ const ConnectionType = new GraphQLObjectType({
     id: { type: GraphQLID },
     owner: {
       type: UserType,
-      resolve: parentValue => Connection.findById(parentValue.id).owner,
+      resolve: ({ owner }) => User.findById(owner),
     },
     partner: {
       type: UserType,
-      resolve: parentValue => Connection.findById(parentValue.id).partner,
+      resolve: ({ partner }) => User.findById(partner),
     },
     title: { type: GraphQLString },
     description: { type: GraphQLString },
