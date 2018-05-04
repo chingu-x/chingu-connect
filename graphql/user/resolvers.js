@@ -21,8 +21,8 @@ const { User, Connection } = require('../../db');
 module.exports = {
   // reference / custom Type resolvers for User Type
   User: {
-    created: ({ id }) => Connection.find({ owner: id }),
-    joined: ({ id }) => Connection.find({ partner: id }),
+    created: ({ id }) => Connection.find({ owner_id: id }),
+    joined: ({ id }) => Connection.find({ partner_id: id }),
   },
 
   Query: {

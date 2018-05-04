@@ -1,11 +1,11 @@
 const mongoose = require('mongoose');
 
 const ConnectionSchema = new mongoose.Schema({
-  owner: {
+  owner_id: {
     type: mongoose.Schema.Types.ObjectId,
     ref: 'User',
   },
-  partner: {
+  partner_id: {
     type: mongoose.Schema.Types.ObjectId,
     ref: 'User',
   },
@@ -27,6 +27,13 @@ const ConnectionSchema = new mongoose.Schema({
   lifespan: Number,
 });
 
-const Connection = mongoose.model('Connection', ConnectionSchema);
+// -- INSTANCE METHODS -- //
+ConnectionSchema.methods.getOwner = function () {
+  return this.model('User').findById(this.owner_id);
+};
 
-module.exports = Connection;
+ConnectionSchema.methods.getPartner = function () {
+  return this.model('User').findById(this.partner_id);
+};
+
+module.exports = { Connection: mongoose.model('Connection', ConnectionSchema) };
