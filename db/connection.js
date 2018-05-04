@@ -30,12 +30,12 @@ const ConnectionSchema = new mongoose.Schema({
 // -- INSTANCE METHODS -- //
 
 // gets the owner (User) document of the Connection instance
-ConnectionSchema.methods.getOwner = function () {
+ConnectionSchema.methods.getOwner = function getOwner() {
   return this.model('User').findById(this.owner_id);
 };
 
 // gets the partner (User) document of the Connection instance
-ConnectionSchema.methods.getPartner = function () {
+ConnectionSchema.methods.getPartner = function getPartner() {
   return this.model('User').findById(this.partner_id);
 };
 
