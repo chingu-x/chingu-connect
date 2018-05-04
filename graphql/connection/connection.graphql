@@ -9,10 +9,3 @@ type Connection {
   owner: User!
   partner: User
 }
-
-type Query {
-  connection(id: ID!): Connection
-  connections: [Connection]!
-}
-
-# type Mutation { }

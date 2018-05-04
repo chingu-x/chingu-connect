@@ -1,18 +1,12 @@
 # Type def
 # any reference / custom Types must be resolved in type.js
+
+# import Connection from '../connection/connection.graphql'
+
 type User {
   username: String!
   github_id: String!
   avatar: String
+  created: [Connection]!
+  joined: [Connection]!
 }
-
-# Query def
-# the queries exposed for accessing this Type
-type Query {
-  user(id: ID!): User
-  users: [User]!
-}
-
-# Mutation def
-# the mutations exposed for mutating this Type
-# type Mutation { }

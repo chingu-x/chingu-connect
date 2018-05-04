@@ -16,11 +16,13 @@
  *   the GraphiQL client will display what the Type schema defines
  */
 
-const User = require('../../db/user');
+const { User, Connection } = require('../../db');
 
 module.exports = {
+  // reference / custom Type resolvers for User Type
   User: {
-    // reference Type resolvers
+    created: ({ id }) => Connection.find({ owner: id }),
+    joined: ({ id }) => Connection.find({ partner: id }),
   },
 
   Query: {

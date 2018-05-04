@@ -2,15 +2,21 @@ const { join } = require('path');
 const { importSchema } = require('graphql-import'); // imports .graphql files
 const { makeExecutableSchema } = require('graphql-tools'); // combines type defs and resolvers
 
-// Type schema resolvers
-const userResolvers = require('./user/resolvers');
-const connectionResolvers = require('./connection/resolvers');
+// Type - custom, query, and mutation resolvers
+const { User, Query: userQueries } = require('./user/resolvers');
+const { Connection, Query: connectionQueries } = require('./connection/resolvers');
 
 const typeDefs = importSchema(join(__dirname, 'schema.graphql'));
 
 const resolvers = {
-  ...userResolvers,
-  ...connectionResolvers,
+  User,
+  Connection,
+  Query: {
+    ...userQueries,
+    ...connectionQueries,
+  },
+  // Mutation: {},
 };
 
 module.exports = makeExecutableSchema({ typeDefs, resolvers });
+
