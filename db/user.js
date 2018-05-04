@@ -8,6 +8,13 @@ const UserSchema = new Schema({
   avatar: String,
 });
 
-const User = mongoose.model('User', UserSchema);
+// -- INSTANCE METHODS -- //
+UserSchema.methods.ownedConnections = function ownedConnections() {
+  return this.model('Connection').find({ owner_id: this.id });
+};
 
-module.exports = User;
+UserSchema.methods.joinedConnections = function joinedConnections() {
+  return this.model('Connection').find({ partner_id: this.id });
+};
+
+module.exports = { User: mongoose.model('User', UserSchema) };
