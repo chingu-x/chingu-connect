@@ -1,21 +1,11 @@
-const graphql = require('graphql');
 const User = require('../../db/user');
-const UserType = require('./userType');
-
-const { GraphQLList, GraphQLID, GraphQLNonNull } = graphql;
 
 module.exports = {
-  user: {
-    type: UserType,
-    args: { id: { type: new GraphQLNonNull(GraphQLID) } },
-    resolve(parentValue, { id }) {
-      return User.findById(id);
-    },
+  Query: {
+    user: id => User.findById(id),
+    users: () => User.find({}),
   },
-  users: {
-    type: new GraphQLList(UserType),
-    resolve() {
-      return User.find({});
-    },
+  User: {
+    // reference Type resolvers
   },
 };

@@ -1,10 +1,12 @@
-const graphql = require('graphql');
-const rootQueries = require('./rootQueries');
-const rootMutations = require('./rootMutations');
+const { join } = require('path');
+const { importSchema } = require('graphql-import'); // imports .graphql files
+const { makeExecutableSchema } = require('graphql-tools'); // combines type defs and resolvers
+const userQueries = require('./user/queries');
 
-const { GraphQLSchema } = graphql;
+const typeDefs = importSchema(join(__dirname, 'schema.graphql'));
 
-module.exports = new GraphQLSchema({
-  query: rootQueries,
-  mutation: rootMutations,
-});
+const resolvers = {
+  ...userQueries,
+};
+
+module.exports = makeExecutableSchema({ typeDefs, resolvers });

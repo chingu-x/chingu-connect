@@ -1,0 +1,10 @@
+type User {
+  username: String!
+  github_id: String!
+  avatar: String
+}
+
+type Query {
+  user(id: ID!): User
+  users: [User]!
+}
