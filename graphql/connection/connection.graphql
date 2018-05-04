@@ -1,0 +1,11 @@
+# importing a reference Type
+# import User from '../user/user.graphql'
+
+type Connection {
+  title: String!
+  description: String!
+  timestamp: String!
+  lifespan: Int!
+  owner: User!
+  partner: User
+}

@@ -3,11 +3,7 @@ const express = require('express');
 const bp = require('body-parser');
 const cors = require('cors');
 const mongoose = require('mongoose');
-const expressGraphQL = require('express-graphql');
-const passportConfig = require('./github_oauth/passportConfig');
-const githubController = require('./github_oauth/githubController');
-
-const schema = require('./graphql/schema');
+const { graphqlExpress, graphiqlExpress } = require('apollo-server-express');
 
 const app = express();
 const port = process.env.PORT || 8008;
@@ -27,13 +23,6 @@ app.use(
     optionsSuccessStatus: 200,
   }),
 );
-app.use(passportConfig);
-
-// -- GRAPHQL -- //
-app.use(
-  '/graphql',
-  expressGraphQL({ schema, graphiql: process.env.GRAPHIQL || false }),
-);
 
 // -- DATABASE -- //
 mongoose.Promise = global.Promise;
@@ -42,6 +31,16 @@ mongoose.connect(
   (error) => { if (error) throw new Error(error); },
 );
 
-// -- CONTROLLERS -- //
+// -- OAUTH -- //
+const passportConfig = require('./oauth/github/passportConfig');
+const githubController = require('./oauth/github/githubController');
+
+app.use(passportConfig);
 app.use('/auth', githubController);
-app.use('/', (req, res) => res.send('ok'));
+
+
+// -- GRAPHQL -- //
+const schema = require('./graphql/schema');
+
+app.use('/graphql', graphqlExpress({ schema }));
+app.use('/graphiql', graphiqlExpress({ endpointURL: '/graphql' }));

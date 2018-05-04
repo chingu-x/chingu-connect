@@ -8,6 +8,16 @@ const UserSchema = new Schema({
   avatar: String,
 });
 
-const User = mongoose.model('User', UserSchema);
+// -- INSTANCE METHODS -- //
 
-module.exports = User;
+// gets the Connection documents that belong to the User instance
+UserSchema.methods.ownedConnections = function ownedConnections() {
+  return this.model('Connection').find({ owner_id: this.id });
+};
+
+// gets the Connection documents that the User instance has joined as a partner
+UserSchema.methods.joinedConnections = function joinedConnections() {
+  return this.model('Connection').find({ partner_id: this.id });
+};
+
+module.exports = { User: mongoose.model('User', UserSchema) };

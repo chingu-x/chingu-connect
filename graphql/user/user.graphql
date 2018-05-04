@@ -1,0 +1,12 @@
+# Type def
+# any reference / custom Types must be resolved in type.js
+
+# import Connection from '../connection/connection.graphql'
+
+type User {
+  username: String!
+  github_id: String!
+  avatar: String
+  created: [Connection]!
+  joined: [Connection]!
+}
