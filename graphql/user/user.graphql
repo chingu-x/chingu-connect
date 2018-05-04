@@ -1,10 +1,18 @@
+# Type def
+# any reference / custom Types must be resolved in type.js
 type User {
   username: String!
   github_id: String!
   avatar: String
 }
 
+# Query def
+# the queries exposed for accessing this Type
 type Query {
   user(id: ID!): User
   users: [User]!
 }
+
+# Mutation def
+# the mutations exposed for mutating this Type
+# type Mutation { }

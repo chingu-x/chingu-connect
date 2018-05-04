@@ -1,1 +1,4 @@
-# import User, Query from './user/user.graphql'
+# call import statements in here to import the types from each file
+# wildcard import: *
+
+# import * from './user/user.graphql'
