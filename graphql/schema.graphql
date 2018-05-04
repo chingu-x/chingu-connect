@@ -2,3 +2,4 @@
 # wildcard import: *
 
 # import * from './user/user.graphql'
+# import * from './connection/connection.graphql'

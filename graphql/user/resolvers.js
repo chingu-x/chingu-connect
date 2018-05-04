@@ -19,12 +19,14 @@
 const User = require('../../db/user');
 
 module.exports = {
+  User: {
+    // reference Type resolvers
+  },
+
   Query: {
     user: id => User.findById(id),
     users: () => User.find({}),
   },
+
   // Mutation: { },
-  User: {
-    // reference Type resolvers
-  },
 };
