@@ -26,7 +26,7 @@ module.exports = {
   },
 
   Query: {
-    user: id => User.findById(id),
+    user: (root, id) => User.findById(id),
     users: () => User.find({}),
   },
 
