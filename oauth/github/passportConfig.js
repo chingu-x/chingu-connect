@@ -10,7 +10,7 @@ const strategy = new GithubStrategy(
     clientID: process.env.GITHUB_CLIENT_ID,
     clientSecret: process.env.GITHUB_CLIENT_SECRET,
     callbackURL: process.env.GITHUB_AUTH_CALLBACK_URL,
-    scope: 'read:user, user:email',
+    scope: 'read:user',
   },
   async (
     accessToken,
@@ -28,9 +28,7 @@ const strategy = new GithubStrategy(
   },
 );
 
-// initialize session middleware on the oAuth router
-// TODO: wtf is router doing?
-// it is a proxy stand-in for adding global middleware to app?
+// initialize session middleware
 router.use(
   session({
     secret: process.env.SESSION_SECRET,
@@ -50,9 +48,19 @@ router.use(passport.initialize());
 router.use(passport.session());
 
 // define serializer / deserializer
-passport.serializeUser((user, done) => done(null, user));
-passport.deserializeUser((user, done) => done(null, user));
+passport.serializeUser((user, done) => done(null, user.id));
+passport.deserializeUser(
+  (userID, done) => {
+    User.findById(userID)
+    .then((user) => {
+      if (user) return done(null, user);
+      return done('Authentication failed. User not found', null);
+    });
+  },
+);
 
 passport.use(strategy);
 
+// router is being used as a stand-in for app.js so config can be done in this file
+// without running into circular dep issues from passing app into this file
 module.exports = router;
