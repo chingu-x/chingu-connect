@@ -8,6 +8,7 @@ module.exports = {
   },
 
   Query: {
+    // TODO: refactor Query resolvers to support new ConnectionInput
     connection: (root, id) => Connection.findById(id),
     connections: () => Connection.find({}),
   },

@@ -1,6 +1,7 @@
 # call import statements in here to import the types from each file
 # wildcard import: *
 
+# TODO: import the ConnectionInput on line 5
 # import Connection from './connection/connection.graphql'
 # import User, UserInput from './user/user.graphql'
 
@@ -9,6 +10,7 @@
 type Query {
   user(input: UserInput!): User
   users: [User]!
+  # TODO: implement the ConnectionInput
   connection(id: ID!): Connection
   connections: [Connection]!
 }
