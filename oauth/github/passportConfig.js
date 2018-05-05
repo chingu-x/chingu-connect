@@ -2,7 +2,7 @@ const router = require('express').Router();
 const passport = require('passport');
 const session = require('express-session');
 const GithubStrategy = require('passport-github2').Strategy;
-const User = require('../../db/user');
+const { User } = require('../../db/user');
 
 // define the strategy to be used by this passport endpoint
 const strategy = new GithubStrategy(
@@ -20,8 +20,8 @@ const strategy = new GithubStrategy(
   ) => {
     try {
       const user = (
-        await User.findOne({ github_id: id }) ||
-        await new User({ github_id: id, username: login, avatar: avatar_url }).save()
+        await User.findOne({ githubID: id }) ||
+        await new User({ githubID: id, username: login, avatar: avatar_url }).save()
       );
       return done(null, user);
     } catch (error) { return done(error, null); }
