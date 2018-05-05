@@ -8,7 +8,7 @@ module.exports = {
   },
 
   Query: {
-    connection: (root, id) => Connection.findById(id),
+    connection: (root, { input: { id } }) => Connection.findById(id),
     connections: () => Connection.find({}),
   },
 
