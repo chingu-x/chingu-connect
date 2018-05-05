@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "start": "node app.js",
-    "dev": "echo 'http://localhost:8008/' && nodemon app.js",
+    "dev": "echo 'http://localhost:8008/graphiql' && nodemon app.js",
     "ngrok": "ngrok http 8008"
   },
   "repository": {

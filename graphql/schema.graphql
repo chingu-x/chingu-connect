@@ -2,16 +2,16 @@
 # wildcard import: *
 
 # import Connection from './connection/connection.graphql'
-# import User from './user/user.graphql'
+# import User, UserInput from './user/user.graphql'
 
 # RootQuery def
 # TODO: find a way to import these and combine them into a root query like schema.js
 type Query {
-  user(id: ID!): User
+  user(input: UserInput!): User
   users: [User]!
   connection(id: ID!): Connection
   connections: [Connection]!
 }
 
 # RootMutation def
-# Type Mutation {}
+# type Mutation {}
