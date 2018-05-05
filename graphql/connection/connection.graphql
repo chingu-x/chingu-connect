@@ -4,11 +4,13 @@
 """
 ### Express Learning Connection between two Users
 
-A **User** creates a **Connection **request by:
+A **User** creates a **Connection** request by:
   - defining the learning goals and meeting timespan
   - allowing for another **User** to join as a partner
 """
 type Connection {
+  "##### **`_immutable_`** object ID of **Connection** document"
+  id: ID!
   "#### 140 characters or less description of learning goals"
   title: String!
   "#### 5000 characters or less for code snippets, links, or other details"
@@ -23,6 +25,25 @@ type Connection {
   partner: User
 }
 
-# TODO: add ConnectionInput type def
-# TODO: add documentation to ConnectionInput
-# input ConnectionInput { ... }
+input ConnectionInput {
+  "##### **`_immutable_`** object ID of **User** document"
+  id: ID
+  "#### **`_immutable_`** **Connection** creation time in ms"
+  timestamp: String
+  "#### 140 characters or less description of learning goals"
+  title: String
+  "#### 5000 characters or less for code snippets, links, or other details"
+  description: String
+  "#### length of time available for meeting, set by owner **User**"
+  lifespan: Int
+}
+
+# CREATE: createConnection(ConnectionInput) // ConnectionInput: { title, description, lifespan, tits, dildos }
+# // inside the method: the ownerID is injected from the logged in user in the context
+
+# UPDATE: joinConnection(ConnectionInput) // ConnectionInput: { id }
+# // inside the method: the partnerID is injected from the logged in user in the context
+# // the Connection is found by ID and then the partnerID is added
+
+# READ: connection(ConnectionInput) // ConnectionInput: { id }
+# // inside the method: the ID is used to grab the connection by id (find)
