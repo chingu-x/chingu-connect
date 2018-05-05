@@ -1,0 +1,17 @@
+# call import statements in here to import the types from each file
+# wildcard import: *
+
+# import Connection, ConnectionInput from './connection/connection.graphql'
+# import User, UserInput from './user/user.graphql'
+
+# RootQuery def
+# TODO: find a way to import these and combine them into a root query like schema.js
+type Query {
+  user(input: UserInput!): User
+  users: [User]!
+  connection(input: ConnectionInput!): Connection
+  connections: [Connection]!
+}
+
+# RootMutation def
+# type Mutation { }
