@@ -1,11 +1,11 @@
 const mongoose = require('mongoose');
 
 const ConnectionSchema = new mongoose.Schema({
-  owner_id: {
+  ownerID: {
     type: mongoose.Schema.Types.ObjectId,
     ref: 'User',
   },
-  partner_id: {
+  partnerID: {
     type: mongoose.Schema.Types.ObjectId,
     ref: 'User',
   },
@@ -31,12 +31,12 @@ const ConnectionSchema = new mongoose.Schema({
 
 // gets the owner (User) document of the Connection instance
 ConnectionSchema.methods.getOwner = function getOwner() {
-  return this.model('User').findById(this.owner_id);
+  return this.model('User').findById(this.ownerID);
 };
 
 // gets the partner (User) document of the Connection instance
 ConnectionSchema.methods.getPartner = function getPartner() {
-  return this.model('User').findById(this.partner_id);
+  return this.model('User').findById(this.partnerID);
 };
 
 module.exports = { Connection: mongoose.model('Connection', ConnectionSchema) };

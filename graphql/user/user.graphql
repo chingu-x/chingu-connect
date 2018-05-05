@@ -1,12 +1,50 @@
-# Type def
-# any reference / custom Types must be resolved in type.js
-
 # import Connection from '../connection/connection.graphql'
 
+# any reference / custom Types must be resolved in type.js
+
+# Docstrings can be added for both the Type and field definitions
+#
+# Markdown is supported in both Type and field defs
+#   confirmed to work in GraphiQL
+#
+# Type description
+#   above Type definition: triple quotes """Type description"""
+# Field description
+#   above field definition: single quotes "field description"
+
+"""
+### User of the Express system
+
+Account creation and login through GitHub
+  - references all created or joined **Connections**
+"""
 type User {
+  "##### **`_immutable_`** object ID of **User** document"
+  id: ID! 
+  "#### **`_immutable_`** unique GitHub ID"
+  githubID: String!
+  "#### username (default: GitHub username)"
   username: String!
-  github_id: String!
+  "#### url path to **User** profile image (default: GitHub avatar)"
   avatar: String
+  "#### list of **Connections** the **User** has created"
   created: [Connection]!
+  "#### list of **Connections** the **User** has joined"
   joined: [Connection]!
+}
+
+"""
+### User Query and Mutation Input
+
+#### At least one of `id`, `githubID`, or `username` is required
+"""
+input UserInput {
+  "#### **`_immutable_`** object ID of **User** document"
+  id: ID
+  "#### **`_immutable_`** unique GitHub ID"
+  githubID: String
+  "#### username (default: GitHub username)"
+  username: String
+  "#### url path to **User** profile image (default: GitHub avatar)"
+  avatar: String
 }

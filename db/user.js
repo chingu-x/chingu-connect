@@ -4,7 +4,7 @@ const Schema = mongoose.Schema;
 
 const UserSchema = new Schema({
   username: String,
-  github_id: String,
+  githubID: String,
   avatar: String,
 });
 
@@ -12,12 +12,12 @@ const UserSchema = new Schema({
 
 // gets the Connection documents that belong to the User instance
 UserSchema.methods.ownedConnections = function ownedConnections() {
-  return this.model('Connection').find({ owner_id: this.id });
+  return this.model('Connection').find({ ownerID: this.id });
 };
 
 // gets the Connection documents that the User instance has joined as a partner
 UserSchema.methods.joinedConnections = function joinedConnections() {
-  return this.model('Connection').find({ partner_id: this.id });
+  return this.model('Connection').find({ partnerID: this.id });
 };
 
 module.exports = { User: mongoose.model('User', UserSchema) };

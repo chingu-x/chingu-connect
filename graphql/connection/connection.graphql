@@ -1,11 +1,24 @@
 # importing a reference Type
 # import User from '../user/user.graphql'
 
+"""
+### Express Learning Connection between two Users
+
+A **User** creates a **Connection **request by:
+  - defining the learning goals and meeting timespan
+  - allowing for another **User** to join as a partner
+"""
 type Connection {
+  "#### 140 characters or less description of learning goals"
   title: String!
+  "#### 5000 characters or less for code snippets, links, or other details"
   description: String!
+  "#### **`_immutable_`** **Connection** creation time in ms"
   timestamp: String!
+  "#### length of time available for meeting, set by owner **User**"
   lifespan: Int!
+  "#### the **User** who created the **Connection**"
   owner: User!
+  "#### the **User** who joined the **Connection**"
   partner: User
 }
