@@ -1,4 +1,5 @@
 const mongoose = require('mongoose');
+const collections = require('./collectionNames');
 
 const ConnectionSchema = new mongoose.Schema({
   ownerID: {
@@ -31,12 +32,12 @@ const ConnectionSchema = new mongoose.Schema({
 
 // gets the owner (User) document of the Connection instance
 ConnectionSchema.methods.getOwner = function getOwner() {
-  return this.model('User').findById(this.ownerID);
+  return this.model(collections.User).findById(this.ownerID);
 };
 
 // gets the partner (User) document of the Connection instance
 ConnectionSchema.methods.getPartner = function getPartner() {
-  return this.model('User').findById(this.partnerID);
+  return this.model(collections.User).findById(this.partnerID);
 };
 
-module.exports = { Connection: mongoose.model('Connection', ConnectionSchema) };
+module.exports = { Connection: mongoose.model(collections.Connection, ConnectionSchema) };
