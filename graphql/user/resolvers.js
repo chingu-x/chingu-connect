@@ -24,10 +24,17 @@ module.exports = {
     created: user => user.ownedConnections(),
     joined: user => user.joinedConnections(),
   },
-
   Query: {
-    user: (root, id) => User.findById(id),
-    users: () => User.find({}),
+    user: (
+      root,
+      { input: { id, githubID, username } }, // deconstructs the UserInput object parameter
+    ) => {
+      if (id) return User.findById(id);
+      else if (githubID) return User.findOne({ githubID });
+      else if (username) return User.findOne({ username });
+      return null;
+    },
+    users: () => User.find({}), // []
   },
 
   // Mutation: { },
