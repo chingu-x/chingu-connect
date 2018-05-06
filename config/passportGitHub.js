@@ -1,8 +1,6 @@
-const router = require('express').Router();
 const passport = require('passport');
-const session = require('express-session');
 const GithubStrategy = require('passport-github2').Strategy;
-const { User } = require('../../db/user');
+const { User } = require('../db/user');
 
 // define the strategy to be used by this passport endpoint
 const strategy = new GithubStrategy(
@@ -28,25 +26,6 @@ const strategy = new GithubStrategy(
   },
 );
 
-// initialize session middleware
-router.use(
-  session({
-    secret: process.env.SESSION_SECRET,
-    resave: true,
-    saveUninitialized: true,
-    // store:
-    // secure: // must ensure https server or proxy approval
-    // proxy:
-    cookie: {
-      maxAge: 172800000, // 48 hour expiration
-    },
-  }),
-);
-
-// initialize passport middleware for the oAuth router
-router.use(passport.initialize());
-router.use(passport.session());
-
 // define serializer / deserializer
 passport.serializeUser((user, done) => done(null, user.id));
 passport.deserializeUser(
@@ -63,4 +42,4 @@ passport.use(strategy);
 
 // router is being used as a stand-in for app.js so config can be done in this file
 // without running into circular dep issues from passing app into this file
-module.exports = router;
+module.exports = passport;
