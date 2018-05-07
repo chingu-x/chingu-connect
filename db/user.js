@@ -4,8 +4,23 @@ const collections = require('./collectionNames');
 const Schema = mongoose.Schema;
 
 const UserSchema = new Schema({
-  username: String,
-  githubID: String,
+  username: {
+    type: String,
+    required: true,
+    unique: true,
+    validate: {
+      validator: (val) => {
+        // https://github.com/shinnn/github-username-regex
+        const githubLoginRegex = /^[a-z\d](?:[a-z\d]|-(?=[a-z\d])){1,38}$/i;
+        return githubLoginRegex.test(val);
+      },
+    },
+  },
+  githubID: {
+    type: String,
+    required: true,
+    unique: true,
+  },
   avatar: String,
 });
 
