@@ -7,6 +7,7 @@ const UserSchema = new Schema({
   username: {
     type: String,
     required: true,
+    unique: true,
     validate: {
       validator: (val) => {
         // https://github.com/shinnn/github-username-regex
@@ -18,6 +19,7 @@ const UserSchema = new Schema({
   githubID: {
     type: String,
     required: true,
+    unique: true,
   },
   avatar: String,
 });
