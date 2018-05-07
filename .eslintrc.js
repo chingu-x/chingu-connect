@@ -3,7 +3,8 @@ module.exports = {
   "globals": {
     "describe": false,
     "beforeAll": false,
-    "it": false,
+    "afterAll": false,
+    "test": false,
     "xit": false,
     "expect": false,
     "jest": false

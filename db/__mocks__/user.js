@@ -2,8 +2,8 @@ module.exports = {
   UserMock: {
     invalid: {
       username: 'the--vampiire',
-      githubID: 'letters',
-      avatar: 'https://avatars3.githubusercontent.com/u/25523?v=4',
+      // githubID: '', // we can fill these in later with validaotr
+      // avatar: '',
     },
     userOne: {
       username: 'the-vampiire',
