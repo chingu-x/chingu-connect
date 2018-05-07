@@ -1,35 +1,59 @@
+const { connect } = require('mongoose');
 const { User } = require('../user');
+const { UserMock } = require('../__mocks__/User');
 
-describe('User Model', () => {
-  describe('Instance Tests', () => {
-    describe('new User instance', () => {
-      it('returns an instance of the User class', () => {
+describe('User Model',
+() => {
+// -- OFFLINE -- //
+  describe('Offline',
+  () => {
+    describe('Good Path',
+    () => {
+      it('accepts a valid User construction',
+      () => {
+        const user = new User(UserMock.userOne);
+        user.validate(error => expect(error).toBeNull());
+      });
+    });
+    describe('Bad Path',
+    () => {
+      it('rejects an empty User construction',
+      () => {
         const user = new User();
-        expect(user).toBeInstanceOf(User);
+        user.validate(
+          ({ errors }) => {
+            expect(errors).toHaveProperty('githubID');
+            expect(errors).toHaveProperty('username');
+          });
       });
 
-      it('accepts constructor props found in the Schema',
-        () => {
-          const user = new User({ githubID: 'a string value' });
-          const expected = user.githubID;
-          expect(expected).toBeDefined();
-        },
-      );
+      it('rejects an invalid GitHub username',
+      () => {
+        const {
+          invalid: { username },
+          userOne: { githubID, avatar },
+        } = UserMock;
 
-      it('ignores constructor props not found in the Schema',
-        () => {
-          const user = new User({ nonSchemaField: 'value' });
-          const expected = user.nonSchemaField;
-          expect(expected).toBeUndefined();
-        },
-      );
-    });
-  });
-  describe('Instance Method Tests', () => {
-    describe('ownedConnections()', () => {
-      const user = new User();
-      it('returns an array', () => {
-        expect(['test']).toBeInstanceOf(Array);
+        const user = new User({ username, githubID, avatar });
+        user.validate(
+          ({ errors }) => expect(errors).toHaveProperty('username'),
+        );
+      });
+
+      it('rejects a missing GitHub ID',
+      () => {
+        const { userOne: { username, avatar } } = UserMock;
+        const user = new User({ username, avatar });
+        user.validate(
+          ({ errors }) => expect(errors).toHaveProperty('githubID'),
+        );
+      });
+
+      it('ignores fields not defined in the schema',
+      () => {
+        const user = new User({ tit: 'tat', ...UserMock.userOne });
+        user.validate(error => expect(error).toBeNull());
+        expect(user.tit).toBeUndefined();
       });
     });
   });
