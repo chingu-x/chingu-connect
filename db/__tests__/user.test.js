@@ -1,9 +1,6 @@
-require('dotenv').config();
-const mongoose = require('mongoose');
+const { testDB } = require('../../test_utils');
 const { User } = require('../user');
 const { UserMock } = require('../__mocks__/user');
-
-mongoose.Promise = global.Promise;
 
 describe('User Model',
 () => {
@@ -35,12 +32,7 @@ describe('User Model',
 // -- ONLINE -- //
   describe('Online',
   () => {
-    let connection;
-    beforeAll(
-    () => {
-      mongoose.connect(process.env.TEST_DB_URI);
-      connection = mongoose.connection;
-    });
+    beforeAll(() => testDB.connect());
 
     describe('insert validations',
     () => {
@@ -74,7 +66,7 @@ describe('User Model',
     afterAll(
     async () => {
       await User.deleteMany({});
-      connection.close();
+      testDB.disconnect();
     });
   });
 });
