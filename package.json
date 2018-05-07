@@ -2,9 +2,10 @@
   "name": "chingu-connect",
   "version": "0.0.0",
   "description": "A tool to connect learners. Designed serendipity",
-  "main": "index.js",
+  "main": "app.js",
   "scripts": {
     "start": "node app.js",
+    "test": "jest",
     "dev": "echo 'http://localhost:8008/graphiql' && nodemon app.js",
     "ngrok": "ngrok http 8008"
   },
@@ -44,6 +45,7 @@
     "eslint": "^3.19.0",
     "eslint-config-airbnb-base": "^11.3.2",
     "eslint-plugin-import": "^2.7.0",
+    "jest": "^22.4.3",
     "ngrok": "^2.2.24",
     "nodemon": "^1.14.11"
   }
