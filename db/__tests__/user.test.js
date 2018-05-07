@@ -1,7 +1,7 @@
 require('dotenv').config();
 const mongoose = require('mongoose');
 const { User } = require('../user');
-const { UserMock } = require('../__mocks__/User');
+const { UserMock } = require('../__mocks__/user');
 
 mongoose.Promise = global.Promise;
 
