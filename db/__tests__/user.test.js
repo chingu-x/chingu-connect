@@ -64,7 +64,7 @@ describe('User Model',
 
 // -- ONLINE -- //
   describe('Online',
-  () => {
+  async () => {
     let connection;
     beforeAll(
     () => {
@@ -76,40 +76,33 @@ describe('User Model',
     () => {
       let user;
       test('creates and saves a new User',
-      () => {
+      async () => {
         user = new User(UserMock.userOne);
-        return user.save((error, userDoc) => {
-          expect(error).toBeNull();
-          expect(userDoc).toHaveProperty('_id');
-        });
+        const res = await user.save();
+        expect(res).toHaveProperty('_id');
       });
 // THIS ONE DOESNT WORK
       test('deletes a User',
-      () => User.deleteOne(
-          { id: user.id },
-          error => expect(error).toBeNull(),
-        ));
+      async () => {
+        const res = await User.deleteOne({ _id: user.id });
+        // n is the number of documents removed in the response object
+        expect(res.n).toEqual(1);
+      });
 
       test('inserts many Users',
-      () => {
+      async () => {
         const { userOne, userTwo } = UserMock;
-        return User.insertMany(
-          [userOne, userTwo],
-          (error, docs) => {
-            expect(error).toBeNull();
-            expect(docs).toBeDefined();
-          },
-        );
+        const res = await User.insertMany([userOne, userTwo]);
+        // responds with array of created User documents
+        expect(res.length).toEqual(2);
       });
 // THIS ONE WORKS
       test('deletes all Users',
-      () => User.deleteMany(
-        {},
-        (error) => {
-          expect(error).toBeNull();
-          User.find({}).then(allQuery => expect(allQuery).toEqual([]));
-        },
-      ));
+      async () => {
+        await User.deleteMany({});
+        const res = await User.find({});
+        expect(res).toEqual([]);
+      });
     }); // end Good Path
 
     afterAll(() => connection.close());
