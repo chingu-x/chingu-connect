@@ -8,6 +8,7 @@ const testDB = {
 
   connect(report = false) {
     if (this.connection) return;
+
     mongoose.connect(process.env.TEST_DB_URI);
     this.connection = mongoose.connection;
     if (report) console.log('connected to test DB');
@@ -15,6 +16,7 @@ const testDB = {
 
   disconnect(report = false) {
     if (!this.connection) return;
+
     this.connection.close();
     this.connection = null;
     if (report) console.log('disconnected from test DB');

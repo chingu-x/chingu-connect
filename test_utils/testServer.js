@@ -11,6 +11,8 @@ const testServer = {
   server: null,
   app: express(),
   port: process.env.PORT || 12345,
+  url: `http://localhost:${this.port}`,
+
   startup(report = false) {
     if (this.server) return;
 
@@ -33,6 +35,7 @@ const testServer = {
     if (!this.server) return;
 
     if (report) console.log('waiting for connections to close');
+
     this.server.close((error) => {
       if (error) console.error(error);
       if (report) console.log('test server successfully shut down');
