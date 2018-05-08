@@ -5,8 +5,7 @@ module.exports = {
   invalid: {
     title: stringMaker(141),
     description: stringMaker(5001),
-    ownerID: 'fakeID',
-    partnerID: 'fakeID',
+    ID: 'fakeID',
     lifespan: 9,
   },
 

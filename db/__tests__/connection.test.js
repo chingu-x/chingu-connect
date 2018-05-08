@@ -123,5 +123,23 @@ describe('Connection Model',
         } catch (error) { console.error(error); }
       });
     });
+
+    describe('ownerID && partnerID',
+    () => {
+      const { ID: invalidID } = ConnectionMock.invalid;
+      const { ownerID, partnerID, ...validData } = ConnectionMock.connectionOne();
+
+      test('accepts a valid object ID reference',
+      () => {
+        const connection = new Connection({ ownerID, ...validData });
+        connection.validate(error => expect(error).toBeNull());
+      });
+
+      test('rejects an invalid object ID reference',
+      () => {
+        const connection = new Connection({ ownerID: invalidID, ...validData });
+        connection.validate(({ errors }) => expect(errors.ownerID).toBeDefined());
+      });
+    });
   });
 });
