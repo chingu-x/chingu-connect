@@ -4,6 +4,7 @@ const collections = require('./collectionNames');
 const ConnectionSchema = new mongoose.Schema({
   ownerID: {
     type: mongoose.Schema.Types.ObjectId,
+    required: true,
     ref: 'User',
   },
   partnerID: {

@@ -28,17 +28,17 @@ describe('Connection Model',
 
     describe('title',
     () => {
+      test('accepts a title under 140 characters',
+      () => {
+        const connection = new Connection(ConnectionMock.connectionOne());
+        connection.validate(error => expect(error).toBeNull());
+      });
+
       test('rejects if no title is passed',
       () => {
         const { title, ...validData } = ConnectionMock.connectionOne();
         const connection = new Connection({ validData });
         connection.validate(({ errors }) => expect(errors.title).toBeDefined());
-      });
-
-      test('accepts a title under 140 characters',
-      () => {
-        const connection = new Connection(ConnectionMock.connectionOne());
-        connection.validate(error => expect(error).toBeNull());
       });
 
       test('rejects a title over 140 characters',
@@ -52,17 +52,17 @@ describe('Connection Model',
 
     describe('description',
     () => {
+      test('accepts a description under 5000 characters',
+      () => {
+        const connection = new Connection(ConnectionMock.connectionOne());
+        connection.validate(error => expect(error).toBeNull());
+      });
+
       test('rejects if no description is passed',
       () => {
         const { description, ...validData } = ConnectionMock.connectionOne();
         const connection = new Connection({ validData });
         connection.validate(({ errors }) => expect(errors.description).toBeDefined());
-      });
-
-      test('accepts a description under 5000 characters',
-      () => {
-        const connection = new Connection(ConnectionMock.connectionOne());
-        connection.validate(error => expect(error).toBeNull());
       });
 
       test('rejects a description over 5000 characters',
@@ -76,17 +76,17 @@ describe('Connection Model',
 
     describe('lifespan',
     () => {
+      test('accepts a lifespan under 8 hours',
+      () => {
+        const connection = new Connection(ConnectionMock.connectionOne());
+        connection.validate(error => expect(error).toBeNull());
+      });
+
       test('rejects if no lifespan is passed',
       () => {
         const { lifespan, ...validData } = ConnectionMock.connectionOne();
         const connection = new Connection({ validData });
         connection.validate(({ errors }) => expect(errors.lifespan).toBeDefined());
-      });
-
-      test('accepts a lifespan under 8 hours',
-      () => {
-        const connection = new Connection(ConnectionMock.connectionOne());
-        connection.validate(error => expect(error).toBeNull());
       });
 
       test('rejects a lifespan under 1 hour',
@@ -131,8 +131,20 @@ describe('Connection Model',
 
       test('accepts a valid object ID reference',
       () => {
+        const connection = new Connection(ConnectionMock.connectionOne(true));
+        connection.validate(error => expect(error).toBeNull());
+      });
+
+      test('accepts if no partnerID is passed',
+      () => {
         const connection = new Connection({ ownerID, ...validData });
         connection.validate(error => expect(error).toBeNull());
+      });
+
+      test('rejects if no ownerID is passed',
+      () => {
+        const connection = new Connection({ ...validData });
+        connection.validate(({ errors }) => expect(errors.ownerID).toBeDefined());
       });
 
       test('rejects an invalid object ID reference',
