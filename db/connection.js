@@ -12,20 +12,31 @@ const ConnectionSchema = new mongoose.Schema({
   },
   title: {
     type: String,
+    required: true,
     validate: {
-      validator: val => val.length < 140,
+      validator: val => val.length <= 140,
       msg: 'Tweet sized titles only!',
     },
   },
   description: {
     type: String,
+    required: true,
     validate: {
-      validator: val => val.length < 5000,
-      msg: '500 characters or less',
+      validator: val => val.length <= 5000,
+      msg: '5000 characters or less',
     },
   },
-  timestamp: String,
-  lifespan: Number,
+  timestamp: {
+    type: String,
+    default: String(Date.now()),
+  },
+  lifespan: {
+    type: Number,
+    required: true,
+    validate: {
+      validator: val => val <= 8 && val >= 1,
+    },
+  },
 });
 
 // -- INSTANCE METHODS -- //

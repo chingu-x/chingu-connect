@@ -1,4 +1,4 @@
-const stringMaker = length => new Array(length).join('a');
+const stringMaker = length => new Array(length + 1).join('a');
 const { Types: { ObjectId } } = require('mongoose');
 
 module.exports = {

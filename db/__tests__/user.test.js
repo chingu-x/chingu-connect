@@ -1,12 +1,30 @@
 const { testDB } = require('../../test_utils');
 const { User } = require('../user');
-const { UserMock } = require('../../test_utils/mock_data/');
+const {
+  compareArrs,
+  mockData: { UserMock },
+} = require('../../test_utils');
 
 describe('User Model',
 () => {
 // -- OFFLINE -- //
   describe('Offline',
   () => {
+    describe('has expected fields, updated 5/7/18',
+    () => {
+      test('username, githubID, avatar',
+      () => {
+        // expected fields should be updated when the Schema changes
+        const expected = [
+          'username',
+          'githubID',
+          'avatar',
+        ];
+        const actual = Object.keys(User.schema.obj);
+        expect(compareArrs(expected, actual)).toBe(true);
+      });
+    });
+
     describe('GitHub username validator',
     () => {
       test('accepts a valid username',
