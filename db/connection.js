@@ -40,6 +40,24 @@ const ConnectionSchema = new mongoose.Schema({
   },
 });
 
+// -- MIDDLEWARE -- //
+function ownerDifferentFromPartner(next) {
+  if (this.ownerID !== this.partnerID) return next();
+
+  const { ValidationError, ValidatorError } = mongoose.Error;
+  const error = new ValidationError(this);
+  error.errors.ownerID = new ValidatorError({
+    message: 'Owner can not be same as partner',
+    path: 'ownerID',
+    type: 'notvalid',
+    value: this.ownerID,
+    reason: 'Attempt to save new Connection document with ownerID matching partnerID',
+  });
+  return next(error);
+}
+
+ConnectionSchema.pre('save', ownerDifferentFromPartner);
+
 // -- INSTANCE METHODS -- //
 
 // gets the owner (User) document of the Connection instance
