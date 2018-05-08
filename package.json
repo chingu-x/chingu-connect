@@ -5,7 +5,7 @@
   "main": "app.js",
   "scripts": {
     "start": "node app.js",
-    "test": "jest",
+    "test": "jest --verbose",
     "coverage": "jest --coverage",
     "dev": "echo 'http://localhost:8008/graphiql' && nodemon app.js",
     "ngrok": "ngrok http 8008"

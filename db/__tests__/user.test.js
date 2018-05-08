@@ -1,6 +1,6 @@
 const { testDB } = require('../../test_utils');
 const { User } = require('../user');
-const { UserMock } = require('../../test_utils/mock_data/user');
+const { UserMock } = require('../../test_utils/mock_data/');
 
 describe('User Model',
 () => {
