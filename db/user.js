@@ -24,8 +24,6 @@ const UserSchema = new Schema({
   avatar: String,
 });
 
-// -- INSTANCE METHODS -- //
-
 // gets the Connection documents that belong to the User instance
 UserSchema.methods.ownedConnections = function ownedConnections() {
   return this.model(collections.Connection).find({ ownerID: this.id });

@@ -9,18 +9,18 @@ module.exports = {
     lifespan: 9,
   },
 
-  connectionOne: (partner = false) => ({
+  connectionOne: (partner = false, owner = true) => ({
     title: 'i need codes',
     description: 'when were you when the noob need help?',
-    ownerID: new ObjectId(),
+    ownerID: owner ? new ObjectId() : null,
     partnerID: partner ? new ObjectId() : null,
     lifespan: 4,
   }),
 
-  connectionTwo: (partner = false) => ({
+  connectionTwo: (partner = false, owner = true) => ({
     title: 'i need codes too man',
     description: 'i was sat at home drinking binary vodka',
-    ownerID: new ObjectId(),
+    ownerID: owner ? new ObjectId() : null,
     partnerID: partner ? new ObjectId() : null,
     lifespan: 1,
   }),
