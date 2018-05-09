@@ -11,7 +11,7 @@ describe('Relationship tests', () => {
   let connection;
   beforeAll(async () => {
     try {
-      await testDB.connect(true);
+      await testDB.connect();
       const { userOne, userTwo } = UserMock;
       const {
         ownerID,
@@ -98,7 +98,7 @@ describe('Relationship tests', () => {
     try {
       await User.deleteMany({});
       await Connection.deleteMany({});
-      testDB.disconnect(true);
+      testDB.disconnect();
     } catch (e) { console.log(e); }
   });
 });

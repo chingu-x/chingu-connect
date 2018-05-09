@@ -5,8 +5,9 @@
   "main": "app.js",
   "scripts": {
     "start": "node app.js",
-    "test": "jest --verbose --runInBand",
-    "coverage": "jest --coverage",
+    "test": "jest",
+    "test:verbose": "jest --verbose",
+    "test:coverage": "jest --coverage",
     "dev": "echo 'http://localhost:8008/graphiql' && nodemon app.js",
     "ngrok": "ngrok http 8008"
   },
@@ -47,6 +48,7 @@
     "eslint-config-airbnb-base": "^11.3.2",
     "eslint-plugin-import": "^2.7.0",
     "jest": "^22.4.3",
+    "mockingoose": "^2.9.1",
     "ngrok": "^2.2.24",
     "nodemon": "^1.14.11"
   }

@@ -12,10 +12,9 @@ describe('Connection model database constraints',
 
   test('accepts if ownerID is different than partnerID',
   async () => {
-    const connection = new Connection({ ownerID, partnerID, ...validData });
     try {
-      const res = await connection.save();
-      expect(res).toBe(connection);
+      const res = await Connection.create({ ownerID, partnerID, ...validData });
+      expect(res).toHaveProperty('_id');
     } catch (error) { console.error(error); }
   });
 
