@@ -19,7 +19,7 @@ const authCallback = async (
   try {
     const user = (
       await User.findOne({ githubID: id }) ||
-      await new User({ githubID: id, username: login, avatar: avatar_url }).save()
+      await User.create({ githubID: id, username: login, avatar: avatar_url })
     );
     return done(null, user);
   } catch (error) { return done(error, null); }

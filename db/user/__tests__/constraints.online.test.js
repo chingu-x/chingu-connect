@@ -4,35 +4,32 @@ const {
 } = require('../../../test_utils');
 const { User } = require('../user');
 
-beforeAll(async () => testDB.connect());
-
 describe('User model database constraints',
 () => {
-  let existingUser;
   beforeAll(
   async () => {
-    existingUser = new User(UserMock.userOne);
-    await existingUser.save();
+    await testDB.connect();
+    await User.create(UserMock.userOne);
   });
 
   test('rejects User with existing username',
   async () => {
-    const user = new User(UserMock.userOne);
     try {
-      await user.save();
+      await User.create(UserMock.userOne);
     } catch (error) { expect(error.message).toMatch(/username/); }
   });
 
   test('rejects User with existing GitHub ID',
   async () => {
     const { githubID, avatar } = UserMock.userOne;
-    const user = new User({ username: 'okname', githubID, avatar });
     try {
-      await user.save();
+      await User.create({ username: 'okname', githubID, avatar });
     } catch (error) { expect(error.message).toMatch(/githubID/); }
   });
 
-  afterAll(async () => User.deleteOne({ _id: existingUser.id }));
+  afterAll(
+  async () => {
+    await User.deleteMany({});
+    await testDB.disconnect();
+  });
 });
-
-afterAll(async () => testDB.disconnect());
