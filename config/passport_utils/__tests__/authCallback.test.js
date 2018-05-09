@@ -44,7 +44,7 @@ describe('GitHub Passport configuration',
         authCallback(null, null, existingPayload, doneMock);
       });
 
-      test('calls the done() method',
+      test('uses the done() callback',
       () => {
         // doneMock should be called one time
         // property: .calls contains an array of calls
@@ -90,7 +90,7 @@ describe('GitHub Passport configuration',
         authCallback(null, null, newPayload, doneMock);
       });
 
-      test('calls the done() method',
+      test('uses the done() callback',
       () => expect(doneMock.mock.calls.length).toBe(1));
 
       test('passes the new user to the done() callback',
