@@ -1,5 +1,5 @@
 const mongoose = require('mongoose');
-const collections = require('./collectionNames');
+const collections = require('../collectionNames');
 
 const ConnectionSchema = new mongoose.Schema({
   ownerID: {

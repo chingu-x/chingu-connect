@@ -1,6 +1,6 @@
 const passport = require('passport');
 const GithubStrategy = require('passport-github2').Strategy;
-const { User } = require('../db/user');
+const { User } = require('../db/user/user');
 
 // define the strategy to be used by this passport endpoint
 const strategy = new GithubStrategy(

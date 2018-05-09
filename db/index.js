@@ -1,5 +1,5 @@
-const { User } = require('./user');
-const { Connection } = require('./connection');
+const { User } = require('./user/user');
+const { Connection } = require('./connection/connection');
 
 module.exports = {
   User,
