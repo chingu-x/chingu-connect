@@ -27,4 +27,7 @@ describe('Connection model database constraints',
   });
 });
 
-afterAll(async () => testDB.disconnect());
+afterAll(async () => {
+  await Connection.deleteMany({});
+  await testDB.disconnect();
+});
