@@ -2,9 +2,9 @@ const { Connection } = require('../connection');
 const {
   compareArrs,
   mockData: { ConnectionMock },
-} = require('../../test_utils');
+} = require('../../../test_utils');
 
-describe('Offline Connection model tests',
+describe('Connection model validators',
 () => {
   describe('has expected fields, updated 5/7/18',
   () => {

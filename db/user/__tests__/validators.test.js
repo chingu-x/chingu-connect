@@ -2,9 +2,9 @@ const { User } = require('../user');
 const {
   compareArrs,
   mockData: { UserMock },
-} = require('../../test_utils');
+} = require('../../../test_utils');
 
-describe('Offline User model tests',
+describe('User model validators',
 () => {
   describe('has expected fields, updated 5/7/18',
   () => {

@@ -1,5 +1,5 @@
 const mongoose = require('mongoose');
-const collections = require('./collectionNames');
+const collections = require('../collectionNames');
 
 const Schema = mongoose.Schema;
 
