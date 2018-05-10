@@ -1,10 +1,12 @@
+const { Connection } = require('../connection');
 const {
-  testDB,
+  TestDB,
   mockData: { ConnectionMock },
 } = require('../../../test_utils');
-const { Connection } = require('../connection');
 
-beforeAll(async () => testDB.connect());
+const db = new TestDB();
+
+beforeAll(async () => db.connect());
 
 describe('Connection model database constraints',
 () => {
@@ -27,4 +29,7 @@ describe('Connection model database constraints',
   });
 });
 
-afterAll(async () => testDB.disconnect());
+afterAll(async () => {
+  await Connection.deleteMany({});
+  await db.disconnect();
+});

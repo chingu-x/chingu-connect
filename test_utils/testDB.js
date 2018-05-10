@@ -1,26 +1,25 @@
 require('dotenv').config();
 const mongoose = require('mongoose');
 
-mongoose.Promise = global.Promise;
-
-const testDB = {
-  connection: null,
-
-  connect(report = false) {
-    if (this.connection) return;
-
-    mongoose.connect(process.env.TEST_DB_URI);
-    this.connection = mongoose.connection;
-    if (report) console.log('connected to test DB');
-  },
-
-  disconnect(report = false) {
-    if (!this.connection) return;
-
-    this.connection.close();
+class TestDB {
+  constructor() {
     this.connection = null;
-    if (report) console.log('disconnected from test DB');
-  },
-};
+  }
 
-module.exports = testDB;
+  async connect() {
+    if (this.connection) return;
+    await mongoose.connect(
+      process.env.TEST_DB_URI,
+      (err) => { if (err) console.error(err); },
+    );
+    this.connection = mongoose.connection;
+  }
+
+  async disconnect() {
+    if (!this.connection) return;
+    await this.connection.close((err) => { if (err) console.error(err); });
+    this.connection = null;
+  }
+}
+
+module.exports = TestDB;
