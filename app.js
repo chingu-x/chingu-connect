@@ -20,10 +20,11 @@ app.use('/auth', authController);
 
 // -- DATABASE -- //
 const mongoose = require('mongoose');
+const DB_URI = require('./config/database/database')(process.env); // returns URI based on NODE_ENV
 
 mongoose.Promise = global.Promise;
 mongoose.connect(
-  process.env.DB_URI,
+  DB_URI,
   (error) => { if (error) throw new Error(error); },
 );
 
