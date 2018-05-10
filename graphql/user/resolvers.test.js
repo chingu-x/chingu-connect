@@ -1,9 +1,11 @@
 const { User, Connection } = require('../../db/index');
 const {
-    testDB,
+    TestDB,
     mockData: { ConnectionMock, UserMock },
 } = require('../../test_utils');
 const axios = require('axios');
+
+const db = new TestDB();
 
 const graphQuery = async (query) => {
   try {
@@ -22,7 +24,7 @@ describe('User Resolver Tests', () => {
 
   beforeAll(async () => {
     try {
-      await testDB.connect();
+      await db.connect();
 
       const { userOne, userTwo } = UserMock;
       const {
@@ -186,7 +188,7 @@ describe('User Resolver Tests', () => {
     try {
       await User.deleteMany({});
       await Connection.deleteMany({});
-      testDB.disconnect();
+      db.disconnect();
     } catch (e) { console.log(e); }
   });
 });

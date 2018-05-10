@@ -1,7 +1,7 @@
 const cors = require('cors');
 
 module.exports = cors({
-  origin: ['https://chingu.io'],
+  origin: true,
   methods: ['GET', 'POST'],
   exposedHeaders: ['Access-Control-Allow-Origin'],
   credentials: true,
