@@ -3,15 +3,22 @@ const {
     TestDB,
     mockData: { ConnectionMock, UserMock },
 } = require('../../test_utils');
-const axios = require('axios');
+
+const { makeExecutableSchema, addMockFunctionsToSchema } = require('graphql-tools');
+const { graphql } = require('graphql');
+const { importSchema } = require('graphql-import');
+const { join } = require('path');
+
+const typeDefs = importSchema(join(__dirname, '../schema.graphql'));
+const schema = makeExecutableSchema({ typeDefs });
+addMockFunctionsToSchema({ schema });
+
 
 const db = new TestDB();
 
 const graphQuery = async (query) => {
   try {
-    const { data: { data } } = await axios.post('http://localhost:8008/graphql', {
-      query,
-    });
+    const { data } = await graphql(schema, query);
     return data;
   } catch (e) { console.log(e); }
 };
@@ -59,6 +66,7 @@ describe('User Resolver Tests', () => {
         }
       `);
       user = response.user;
+      console.log(user);
     });
 
     it('should return single User object', async () => {
@@ -90,6 +98,7 @@ describe('User Resolver Tests', () => {
           }
         `);
       allUsers = response.users;
+      console.log(allUsers);
     });
 
     it('should return an array', () => {
@@ -127,6 +136,7 @@ describe('User Resolver Tests', () => {
             }
           }
         `);
+      console.log(response.user);
       user = response.user;
     });
 
