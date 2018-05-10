@@ -13,7 +13,7 @@ const graphQuery = async (query) => {
       query,
     });
     return data;
-  } catch (e) { console.log(e.response.data.errors); }
+  } catch (e) { console.log(e); }
 };
 
 
