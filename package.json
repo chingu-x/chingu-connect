@@ -6,11 +6,11 @@
   "scripts": {
     "start": "NODE_ENV='prod' node app.js",
     "test": "jest --i",
-    "dev": "echo 'http://localhost:8008/graphiql' && NODE_ENV='dev' nodemon app.js",
-    "ngrok": "ngrok http 8008",
     "test:server": "NODE_ENV='test' nodemon app.js",
-    "test:verbose": "jest --verbose",
-    "test:coverage": "jest --coverage"
+    "test:verbose": "jest -i --verbose",
+    "test:coverage": "jest -i --coverage",
+    "dev": "echo 'http://localhost:8008/graphiql' && NODE_ENV='dev' nodemon app.js",
+    "share": "ngrok http 8008"
   },
   "repository": {
     "type": "git",
