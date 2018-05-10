@@ -4,12 +4,13 @@
   "description": "A tool to connect learners. Designed serendipity",
   "main": "app.js",
   "scripts": {
-    "start": "node app.js",
+    "start": "NODE_ENV='prod' node app.js",
     "test": "jest --i",
-    "test:verbose": "jest --verbose",
-    "test:coverage": "jest --coverage",
-    "dev": "echo 'http://localhost:8008/graphiql' && nodemon app.js",
-    "ngrok": "ngrok http 8008"
+    "test:server": "NODE_ENV='test' nodemon app.js",
+    "test:verbose": "jest -i --verbose",
+    "test:coverage": "jest -i --coverage",
+    "dev": "echo 'http://localhost:8008/graphiql' && NODE_ENV='dev' nodemon app.js",
+    "share": "ngrok http 8008"
   },
   "repository": {
     "type": "git",

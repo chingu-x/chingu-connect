@@ -1,9 +1,10 @@
 const { User, Connection } = require('../index');
 const {
-  testDB,
-  mockData: { ConnectionMock, UserMock },
+  TestDB,
+  mockData: { UserMock, ConnectionMock },
 } = require('../../test_utils');
 
+const db = new TestDB();
 
 describe('Relationship tests', () => {
   let owner;
@@ -11,7 +12,7 @@ describe('Relationship tests', () => {
   let connection;
   beforeAll(async () => {
     try {
-      await testDB.connect();
+      await db.connect();
       const { userOne, userTwo } = UserMock;
       const {
         ownerID,
@@ -98,7 +99,7 @@ describe('Relationship tests', () => {
     try {
       await User.deleteMany({});
       await Connection.deleteMany({});
-      testDB.disconnect();
+      await db.disconnect();
     } catch (e) { console.log(e); }
   });
 });

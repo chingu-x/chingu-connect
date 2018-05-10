@@ -1,14 +1,16 @@
+const { User } = require('../user');
 const {
-  testDB,
+  TestDB,
   mockData: { UserMock },
 } = require('../../../test_utils');
-const { User } = require('../user');
+
+const db = new TestDB();
 
 describe('User model database constraints',
 () => {
   beforeAll(
   async () => {
-    await testDB.connect();
+    await db.connect();
     await User.create(UserMock.userOne);
   });
 
@@ -30,6 +32,6 @@ describe('User model database constraints',
   afterAll(
   async () => {
     await User.deleteMany({});
-    await testDB.disconnect();
+    await db.disconnect();
   });
 });
