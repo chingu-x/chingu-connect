@@ -1,8 +1,5 @@
 const { Connection } = require('../connection');
-const {
-  TestDB,
-  mockData: { ConnectionMock },
-} = require('../../../test_utils');
+const { dbMock: { ConnectionMock, TestDB } } = require('../../../test_utils');
 
 const db = new TestDB();
 

@@ -1,7 +1,7 @@
 const { Connection } = require('../connection');
 const {
   compareArrs,
-  mockData: { ConnectionMock },
+  dbMock: { ConnectionMock },
 } = require('../../../test_utils');
 
 describe('Connection model validators',
