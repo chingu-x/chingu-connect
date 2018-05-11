@@ -1,8 +1,12 @@
 require('dotenv').config();
+const { resolve } = require('path');
 const express = require('express');
 
 const app = express();
 const port = process.env.PORT || 8008;
+const publicPath = resolve(__dirname, '..', 'client/dist');
+
+app.use(express.static(publicPath));
 app.listen(
   port,
   (error) => { if (error) throw new Error(error); },
