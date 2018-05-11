@@ -4,8 +4,10 @@ const {
   dbMock: { UserMock: { userOne } },
 } = require('../../test_utils');
 
-describe('User Resolver Tests', () => {
-  describe('single User [user] Query', async () => {
+describe('User Resolver Tests',
+() => {
+  describe('[user] root Query',
+  () => {
     let requestedUser;
     beforeAll(async () => {
       const response = await mockRequester(`
@@ -35,7 +37,8 @@ describe('User Resolver Tests', () => {
   });
 
 
-  describe('multiple Users [users] Query', async () => {
+  describe('[users] root Query',
+  () => {
     let allUsers;
     beforeAll(async () => {
       const response = await mockRequester(`
@@ -64,86 +67,87 @@ describe('User Resolver Tests', () => {
   });
 
 
-  // describe('User -> Created Resolver', () => {
-  //   let user;
-  //   beforeAll(async () => {
-  //     const response = await mockRequester(`
-  //         {
-  //           user(input:{ id:"${owner.id}"}){
-  //               id
-  //               created {
-  //                   title
-  //                   description
-  //                   owner {
-  //                       id
-  //                   }
-  //               }
-  //           }
-  //         }
-  //       `);
-  //     console.log(response.user);
-  //     user = response.user;
-  //   });
+  describe('[created] User field', () => {
+    let requestedUser;
+    let created;
+    let createdConnection;
+    beforeAll(async () => {
+      const response = await mockRequester(`
+         query {
+            user(input:{ id:"m4n33d1Ld05" }) {
+                id
+                created {
+                    title
+                    description
+                    owner {
+                        id
+                    }
+                }
+            }
+          }
+      `);
+      requestedUser = response.user;
+      created = requestedUser.created;
+      createdConnection = created[0];
+    });
 
-  //   it('should return an array', async () => {
-  //     expect(user.created).toBeInstanceOf(Array);
-  //   });
+    it('should return an array',
+    () => expect(created).toBeInstanceOf(Array));
 
-  //   it('should return correct requested fields', () => {
-  //     const { title, description, owner } = user.created;
-  //     expect(title).not.toBeNull();
-  //     expect(description).not.toBeNull();
-  //     expect(owner).not.toBeNull();
-  //   });
+    it('should return one created Connection',
+    () => expect(created.length).toBe(1));
 
-  //   it('should return only connections created by user', () => {
-  //     expect(user.created.every(cr => cr.owner.id === user.id)).toBe(true);
-  //   });
-  // });
+    it('should return the requested created Connection fields',
+    () => {
+      const fields = Object.keys(createdConnection);
+      const expectedFields = ['title', 'description', 'owner'];
+      expect(compareArrs(fields, expectedFields)).toBe(true);
+    });
+
+    it('should return the Connection created by the user',
+    () => expect(createdConnection.owner.id).toEqual(String(userOne.id)));
+  });
 
 
-  // describe('User -> Joined Resolver', () => {
-  //   let user;
-  //   beforeAll(async () => {
-  //     const response = await mockRequester(`
-  //       {
-  //         user(input:{ id:"${owner.id}"}){
-  //             id
-  //             joined {
-  //                 title
-  //                 description
-  //                 owner {
-  //                     id
-  //                 }
-  //             }
-  //         }
-  //       }
-  //     `);
-  //     user = response.user;
-  //   });
+  describe('[joined] User field',
+  () => {
+    let requestedUser;
+    let joined;
+    let joinedConnection;
+    beforeAll(async () => {
+      const response = await mockRequester(`
+         query {
+            user(input:{ id:"m4n33d1Ld05" }) {
+                id
+                joined {
+                    title
+                    description
+                    partner {
+                        id
+                    }
+                }
+            }
+          }
+      `);
+      requestedUser = response.user;
+      joined = requestedUser.joined;
+      joinedConnection = joined[0];
+    });
 
-  //   it('should return an array', async () => {
-  //     expect(user.joined).toBeInstanceOf(Array);
-  //   });
+    it('should return an array',
+    () => expect(joined).toBeInstanceOf(Array));
 
-  //   it('should return correct requested fields', () => {
-  //     const { title, description, partner } = user.joined;
-  //     expect(title).not.toBeNull();
-  //     expect(description).not.toBeNull();
-  //     expect(partner).not.toBeNull();
-  //   });
+    it('should return one joined Connection',
+    () => expect(joined.length).toBe(1));
 
-  //   it('should return only connections created by user', () => {
-  //     expect(user.joined.every(cr => cr.partner.id === user.id)).toBe(true);
-  //   });
-  // });
+    it('should return the requested joined Connection fields',
+    () => {
+      const fields = Object.keys(joinedConnection);
+      const expectedFields = ['title', 'description', 'partner'];
+      expect(compareArrs(fields, expectedFields)).toBe(true);
+    });
 
-  // afterAll(async () => {
-  //   // ===== delete everything we made =====
-  //   try {
-  //     await User.deleteMany({});
-  //     await Connection.deleteMany({});
-  //     db.disconnect();
-  //   } catch (e) { console.log(e); }
-  // });
+    it('should return the Connection joined by the user',
+    () => expect(joinedConnection.partner.id).toEqual(String(userOne.id)));
+  });
 });
