@@ -1,8 +1,5 @@
 const { Connection } = require('../connection');
-const {
-  TestDB,
-  mockData: { ConnectionMock },
-} = require('../../../test_utils');
+const { dbMock: { ConnectionMock, TestDB } } = require('../../../test_utils');
 
 const db = new TestDB();
 
@@ -10,7 +7,7 @@ beforeAll(async () => db.connect());
 
 describe('Connection model database constraints',
 () => {
-  const { ownerID, partnerID, ...validData } = ConnectionMock.connectionOne(true);
+  const { ownerID, partnerID, ...validData } = ConnectionMock.connectionOne;
 
   test('accepts if ownerID is different than partnerID',
   async () => {

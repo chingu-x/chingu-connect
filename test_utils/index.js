@@ -1,9 +1,9 @@
-const mockData = require('./mock_data');
+const dbMock = require('./db');
+const mockRequester = require('./mockGraphql');
 const compareArrs = require('./compareArrs');
-const TestDB = require('./testDB');
 
 module.exports = {
-  mockData,
+  dbMock,
+  mockRequester,
   compareArrs,
-  TestDB,
 };

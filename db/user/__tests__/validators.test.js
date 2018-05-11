@@ -1,7 +1,7 @@
 const { User } = require('../user');
 const {
   compareArrs,
-  mockData: { UserMock },
+  dbMock: { UserMock },
 } = require('../../../test_utils');
 
 describe('User model validators',

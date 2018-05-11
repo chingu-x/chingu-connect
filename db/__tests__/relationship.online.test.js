@@ -1,8 +1,5 @@
 const { User, Connection } = require('../index');
-const {
-  TestDB,
-  mockData: { UserMock, ConnectionMock },
-} = require('../../test_utils');
+const { dbMock: { UserMock, ConnectionMock, TestDB } } = require('../../test_utils');
 
 const db = new TestDB();
 
@@ -18,7 +15,7 @@ describe('Relationship tests', () => {
         ownerID,
         partnerID,
         ...data
-      } = ConnectionMock.connectionOne(false, false);
+      } = ConnectionMock.connectionOne;
 
       owner = await User.create(userOne);
       partner = await User.create(userTwo);

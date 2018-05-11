@@ -9,19 +9,21 @@ module.exports = {
     lifespan: 9,
   },
 
-  connectionOne: (partner = false, owner = true) => ({
+  connectionOne: {
+    id: new ObjectId('4bee3d10b0c3121b1d5f21c1'),
     title: 'i need codes',
     description: 'when were you when the noob need help?',
-    ownerID: owner ? new ObjectId() : null,
-    partnerID: partner ? new ObjectId() : null,
+    ownerID: new ObjectId('5aee3d10b0c3121b1d5f21c1'),
+    partnerID: new ObjectId('5aee3d10b0c3121b1d5f22d2'),
     lifespan: 4,
-  }),
+  },
 
-  connectionTwo: (partner = false, owner = true) => ({
+  connectionTwo: {
+    id: new ObjectId('4baa3d10b0c3121b1d5f21c1'),
     title: 'i need codes too man',
     description: 'i was sat at home drinking binary vodka',
-    ownerID: owner ? new ObjectId() : null,
-    partnerID: partner ? new ObjectId() : null,
+    ownerID: new ObjectId('5aee3d10b0c3121b1d5f22d2'),
+    partnerID: new ObjectId('5aee3d10b0c3121b1d5f21c1'),
     lifespan: 1,
-  }),
+  },
 };

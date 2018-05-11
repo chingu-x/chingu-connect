@@ -1,8 +1,5 @@
 const { User } = require('../user');
-const {
-  TestDB,
-  mockData: { UserMock },
-} = require('../../../test_utils');
+const { dbMock: { UserMock, TestDB } } = require('../../../test_utils');
 
 const db = new TestDB();
 

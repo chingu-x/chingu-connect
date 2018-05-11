@@ -1,7 +1,7 @@
 const { Connection } = require('../connection');
 const {
   compareArrs,
-  mockData: { ConnectionMock },
+  dbMock: { ConnectionMock },
 } = require('../../../test_utils');
 
 describe('Connection model validators',
@@ -28,21 +28,21 @@ describe('Connection model validators',
   () => {
     test('accepts a title under 140 characters',
     () => {
-      const connection = new Connection(ConnectionMock.connectionOne());
+      const connection = new Connection(ConnectionMock.connectionOne);
       connection.validate(error => expect(error).toBeNull());
     });
 
     test('rejects a title over 140 characters',
     () => {
       const { title: invalidTitle } = ConnectionMock.invalid;
-      const { title: validTitle, ...validData } = ConnectionMock.connectionOne();
+      const { title: validTitle, ...validData } = ConnectionMock.connectionOne;
       const connection = new Connection({ title: invalidTitle, ...validData });
       connection.validate(({ errors }) => expect(errors.title).toBeDefined());
     });
 
     test('rejects if no title is passed',
     () => {
-      const { title, ...validData } = ConnectionMock.connectionOne();
+      const { title, ...validData } = ConnectionMock.connectionOne;
       const connection = new Connection({ validData });
       connection.validate(({ errors }) => expect(errors.title).toBeDefined());
     });
@@ -52,21 +52,21 @@ describe('Connection model validators',
   () => {
     test('accepts a description under 5000 characters',
     () => {
-      const connection = new Connection(ConnectionMock.connectionOne());
+      const connection = new Connection(ConnectionMock.connectionOne);
       connection.validate(error => expect(error).toBeNull());
     });
 
     test('rejects a description over 5000 characters',
     () => {
       const { description: invalidDescription } = ConnectionMock.invalid;
-      const { description: validDescription, ...validData } = ConnectionMock.connectionOne();
+      const { description: validDescription, ...validData } = ConnectionMock.connectionOne;
       const connection = new Connection({ description: invalidDescription, ...validData });
       connection.validate(({ errors }) => expect(errors.description).toBeDefined());
     });
 
     test('rejects if no description is passed',
     () => {
-      const { description, ...validData } = ConnectionMock.connectionOne();
+      const { description, ...validData } = ConnectionMock.connectionOne;
       const connection = new Connection({ validData });
       connection.validate(({ errors }) => expect(errors.description).toBeDefined());
     });
@@ -76,13 +76,13 @@ describe('Connection model validators',
   () => {
     test('accepts a lifespan under 8 hours',
     () => {
-      const connection = new Connection(ConnectionMock.connectionOne());
+      const connection = new Connection(ConnectionMock.connectionOne);
       connection.validate(error => expect(error).toBeNull());
     });
 
     test('rejects a lifespan under 1 hour',
     () => {
-      const { lifespan, ...validData } = ConnectionMock.connectionOne();
+      const { lifespan, ...validData } = ConnectionMock.connectionOne;
       const connection = new Connection({ lifespan: 0, ...validData });
       connection.validate(({ errors }) => expect(errors.lifespan).toBeDefined());
     });
@@ -90,14 +90,14 @@ describe('Connection model validators',
     test('rejects a lifespan over 8 hours',
     () => {
       const { lifespan: invalidLifespan } = ConnectionMock.invalid;
-      const { lifespan: validLifespan, ...validData } = ConnectionMock.connectionOne();
+      const { lifespan: validLifespan, ...validData } = ConnectionMock.connectionOne;
       const connection = new Connection({ lifespan: invalidLifespan, ...validData });
       connection.validate(({ errors }) => expect(errors.lifespan).toBeDefined());
     });
 
     test('rejects if no lifespan is passed',
     () => {
-      const { lifespan, ...validData } = ConnectionMock.connectionOne();
+      const { lifespan, ...validData } = ConnectionMock.connectionOne;
       const connection = new Connection({ validData });
       connection.validate(({ errors }) => expect(errors.lifespan).toBeDefined());
     });
@@ -105,7 +105,7 @@ describe('Connection model validators',
 
   describe('timestamp',
   () => {
-    const connection = new Connection(ConnectionMock.connectionOne());
+    const connection = new Connection(ConnectionMock.connectionOne);
     test('auto generates on creation',
     () => {
       connection.validate(error => expect(error).toBeNull());
@@ -125,11 +125,11 @@ describe('Connection model validators',
   describe('ownerID && partnerID',
   () => {
     const { ID: invalidID } = ConnectionMock.invalid;
-    const { ownerID, partnerID, ...validData } = ConnectionMock.connectionOne();
+    const { ownerID, partnerID, ...validData } = ConnectionMock.connectionOne;
 
     test('accepts a valid object ID reference',
     () => {
-      const connection = new Connection(ConnectionMock.connectionOne(true));
+      const connection = new Connection(ConnectionMock.connectionOne);
       connection.validate(error => expect(error).toBeNull());
     });
 
