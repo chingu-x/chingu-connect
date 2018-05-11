@@ -2,8 +2,8 @@ const { addMockFunctionsToSchema, MockList } = require('graphql-tools');
 const { graphql } = require('graphql');
 const schema = require('../graphql/schema');
 const {
-  UserMock: { userOne, userTwo },
-  ConnectionMock: { connectionOne, connectionTwo },
+  UserMock: { userOne },
+  ConnectionMock: { connectionOne },
 } = require('./db');
 
 const Query = () => ({
@@ -17,8 +17,8 @@ const User = () => ({
   username: () => userOne.username,
   githubID: () => userOne.githubID,
   avatar: () => userOne.avatar,
-  created: () => new MockList(1, () => connectionOne()),
-  joined: () => new MockList(1, () => connectionTwo()),
+  created: () => new MockList(1, () => connectionOne),
+  joined: () => new MockList(1, () => connectionOne),
 });
 
 // mock Connection Type
@@ -29,7 +29,7 @@ const Connection = () => ({
   lifespan: () => connectionOne.lifespan,
   timestamp: () => String(Date.now()),
   owner: () => userOne,
-  partner: () => userTwo,
+  partner: () => userOne,
 });
 
 addMockFunctionsToSchema({

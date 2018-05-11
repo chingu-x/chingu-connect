@@ -15,7 +15,7 @@ describe('Relationship tests', () => {
         ownerID,
         partnerID,
         ...data
-      } = ConnectionMock.connectionOne(false, false);
+      } = ConnectionMock.connectionOne;
 
       owner = await User.create(userOne);
       partner = await User.create(userTwo);

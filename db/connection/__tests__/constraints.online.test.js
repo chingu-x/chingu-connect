@@ -7,7 +7,7 @@ beforeAll(async () => db.connect());
 
 describe('Connection model database constraints',
 () => {
-  const { ownerID, partnerID, ...validData } = ConnectionMock.connectionOne(true);
+  const { ownerID, partnerID, ...validData } = ConnectionMock.connectionOne;
 
   test('accepts if ownerID is different than partnerID',
   async () => {
