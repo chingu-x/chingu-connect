@@ -16,8 +16,8 @@ const App = () => (
     {({ loading, error, data }) => {
       if (loading) return <p>Loading...</p>;
       if (error) return <p>Error!</p>;
-      console.log('USERS: ', data.users);
-      return null;
+      // Temporary code vomit to show query
+      return <p>Users in DB: {data.users.length}</p>;
     }}
     </Query>
 
