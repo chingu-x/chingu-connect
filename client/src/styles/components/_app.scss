@@ -1,0 +1,19 @@
+.app-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+}
+
+.app-card {
+  padding: 30px;
+  border-radius: 3px;
+  box-shadow: 0 10px 6px -6px grey;  
+  background-color: $chingu-blue;
+  color: $off-white;
+
+  h1 {
+    color: $chingu-green;
+  }
+}

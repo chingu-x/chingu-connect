@@ -18,23 +18,32 @@
 
 const { User } = require('../../db');
 
+const getCreated = user => user.ownedConnections();
+const getJoined = user => user.joinedConnections();
+
+const getUser = (
+  root,
+  { input: { id, githubID, username } }, // deconstructs the UserInput object parameter
+) => {
+  if (id) return User.findById(id);
+  else if (githubID) return User.findOne({ githubID });
+  else if (username) return User.findOne({ username });
+  return null;
+};
+
+const getUsers = () => User.find({});
+
 module.exports = {
+  getUser,
+  getUsers,
   // reference / custom Type resolvers for User Type
   User: {
-    created: user => user.ownedConnections(),
-    joined: user => user.joinedConnections(),
+    created: getCreated,
+    joined: getJoined,
   },
   Query: {
-    user: (
-      root,
-      { input: { id, githubID, username } }, // deconstructs the UserInput object parameter
-    ) => {
-      if (id) return User.findById(id);
-      else if (githubID) return User.findOne({ githubID });
-      else if (username) return User.findOne({ username });
-      return null;
-    },
-    users: () => User.find({}), // []
+    user: getUser, // User
+    users: getUsers, // [User]
   },
 
   // Mutation: { },

@@ -1,45 +1,39 @@
 require('dotenv').config();
+const { resolve } = require('path');
 const express = require('express');
-const bp = require('body-parser');
-const cors = require('cors');
-const mongoose = require('mongoose');
-const { graphqlExpress, graphiqlExpress } = require('apollo-server-express');
 
 const app = express();
 const port = process.env.PORT || 8008;
+const publicPath = resolve(__dirname, '..', 'client/dist');
+
+app.use(express.static(publicPath));
 app.listen(
   port,
   (error) => { if (error) throw new Error(error); },
 );
 
 // -- MIDDLEWARE -- //
-app.use(bp.json());
-app.use(
-  cors({
-    origin: ['https://chingu.io'],
-    methods: ['GET', 'POST'],
-    exposedHeaders: ['Access-Control-Allow-Origin'],
-    credentials: true,
-    optionsSuccessStatus: 200,
-  }),
-);
+const middleware = require('./config/appMiddleware');
+
+app.use(middleware);
+
+// -- GITHUB OAUTH -- //
+const authController = require('./controllers/authController');
+
+app.use('/auth', authController);
 
 // -- DATABASE -- //
+const mongoose = require('mongoose');
+const DB_URI = require('./config/database/database')(process.env); // returns URI based on NODE_ENV
+
 mongoose.Promise = global.Promise;
 mongoose.connect(
-  process.env.DB_URI,
+  DB_URI,
   (error) => { if (error) throw new Error(error); },
 );
 
-// -- OAUTH -- //
-const passportConfig = require('./oauth/github/passportConfig');
-const githubController = require('./oauth/github/githubController');
-
-app.use(passportConfig);
-app.use('/auth', githubController);
-
-
 // -- GRAPHQL -- //
+const { graphqlExpress, graphiqlExpress } = require('apollo-server-express');
 const schema = require('./graphql/schema');
 
 app.use('/graphql', graphqlExpress({ schema }));
