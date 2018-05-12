@@ -10,7 +10,7 @@
     "test:verbose": "jest -i --verbose",
     "test:coverage": "jest -i --coverage",
     "dev": "echo 'http://localhost:8008/graphiql' && NODE_ENV='dev' nodemon app.js",
-    "hack": "concurrently --kill-others \"npm run test:server\" \"npm run build:dev\"",
+    "hack": "concurrently --kill-others \"npm run dev\" \"npm run build:dev\"",
     "share": "ngrok http 8008",
     "build:dev": "webpack-dev-server --hot --watch --config config/webpack/webpack.dev.js",
     "build:prod": "webpack --config config/webpack/webpack.prod.js"
