@@ -4,6 +4,12 @@ node_js:
 cache:
   directories:
   - node_modules
+jobs:
+  include:
+    - stage: Coverage
+    script: jest -i --coverage && cat ./coverage/lcov.info | ./node_modules/coveralls/bin/coveralls.js && rm -rf ./coverage
+    - stage: Tests
+    script: jest -i
 env:
   global:
   - secure: I0vMfUkUeLRXBau1hrczpublvD5k5BsmtuyoC06dvjwCH+tX5kOUsNbp2/1RDUoAFu8K8KRY0DeZWQW09n6EzHqDfiQZZFthpttFUO5Ue+d1+zviZo75lr+R6KCapdzBpi8dCHt24FRPkoO1hoo3vpyhqHTq7vnPgs12NcnlPrv0U076uvi/Fyknds3L927kMGpWgE9o/MhNrueiJDWE9Dcjn1YRsnzwEK/XkI/dk93JMVAuKQ8tYdhwNKjhzQ2YImOBraBQQBKZ6esS1bClb+0COQ2TcsftGGjfSXHsnSbqbVfDrX/cPc1a0GY2zTX4DteM/BdNZHahE/VayEuAW7SKMk/iNpp8HbdFCygXz/Ss1JaZ7IKl/eNozyq8JkCnXsEYMUIEn0pWZP31Vis03En9c37QEiVyT1ErEIqvO5DTyWNFIhjJ01sGnbyl4Ue9eBnSHJruvJB3O18LY0PuPDQ9SGUv7DAIalVNKDE47T8w5IaHX6Eo0kG4iSy6Hwp/3IKjkUeoKmKeofbITaYmZOoazznRarPYny3mtAo4CYCDAPzrQ5Ery4WtimpS/XeijsEnzT/fRv0i39PCOn2BEDfdJzWVFELZKmdwTPNrfQeG1H2yGQW1cckchdDd9xWmQCiNs2XkRNcte5stsmkU/UEic3oVli1aCmShgl0Dwyo=
