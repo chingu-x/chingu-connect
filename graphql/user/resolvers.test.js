@@ -30,28 +30,28 @@ describe('User Query resolvers',
     test('returns a User given an ID',
     async () => {
       const args = { input: { id: inputs.id } };
-      const output = await getUser(null, args);
+      const output = await getUser(null, args, { models: { User } });
       expect(output._id).toEqual(userOne.id);
     });
 
     test('returns a User given a githubID',
     async () => {
       const args = { input: { githubID: inputs.githubID } };
-      const output = await getUser(null, args);
+      const output = await getUser(null, args, { models: { User } });
       expect(output._id).toEqual(userOne.id);
     });
 
     test('returns a User given a username',
     async () => {
       const args = { input: { username: inputs.username } };
-      const output = await getUser(null, args);
+      const output = await getUser(null, args, { models: { User } });
       expect(output._id).toEqual(userOne.id);
     });
 
     test('returns null given an unexpected input',
     async () => {
       const args = { input: { tit: 'tat' } };
-      const output = await getUser(null, args);
+      const output = await getUser(null, args, { models: { User } });
       expect(output).toBeNull();
     });
 
@@ -59,7 +59,7 @@ describe('User Query resolvers',
     async () => {
       mockingoose.User.toReturn(null, 'findOne');
       const args = { input: { id: 'made this up' } };
-      const output = await getUser(null, args);
+      const output = await getUser(null, args, { models: { User } });
       expect(output).toBeNull();
     });
   });
@@ -75,14 +75,14 @@ describe('User Query resolvers',
     test('returns an array',
     async () => {
       mockingoose.User.toReturn([], 'find');
-      const output = await getUsers();
+      const output = await getUsers(null, null, { models: { User } });
       expect(output).toEqual([]);
     });
 
     test('contains User document elements',
     async () => {
       mockingoose.User.toReturn([new User()]);
-      const output = await getUsers();
+      const output = await getUsers(null, null, { models: { User } });
       expect(output[0]).toBeInstanceOf(User);
     });
   });
