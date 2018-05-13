@@ -24,6 +24,7 @@ app.use('/auth', authController);
 
 // -- DATABASE -- //
 const mongoose = require('mongoose');
+const models = require('./db');
 const DB_URI = require('./config/database/database')(process.env); // returns URI based on NODE_ENV
 
 mongoose.Promise = global.Promise;
@@ -36,5 +37,14 @@ mongoose.connect(
 const { graphqlExpress, graphiqlExpress } = require('apollo-server-express');
 const schema = require('./graphql/schema');
 
-app.use('/graphql', graphqlExpress({ schema }));
+app.use(
+  '/graphql',
+  graphqlExpress(({ user }) => ({ // middleware functions have params 'req', 'res', and 'next'
+    schema,
+    context: {
+      authUser: user, // destructured from the 'req' parameter: req.user --> { user } --> remember (1 dot = 1 { } )
+      models, // database models so they dont need to be imported on each resolver file
+    }
+  })),
+);
 app.use('/graphiql', graphiqlExpress({ endpointURL: '/graphql' }));

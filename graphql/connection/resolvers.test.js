@@ -19,7 +19,7 @@ describe('Connection Query resolvers',
     test('returns a Connection given an ID',
     async () => {
       const args = { input: { id: connectionOne.id } };
-      const output = await getConnection(null, args);
+      const output = await getConnection(null, args, { models: { Connection } });
       expect(output._id).toEqual(connectionOne.id);
     });
 
@@ -27,7 +27,7 @@ describe('Connection Query resolvers',
     async () => {
       mockingoose.Connection.toReturn(null, 'findOne');
       const args = { input: { id: 'made this up' } };
-      const output = await getConnection(null, args);
+      const output = await getConnection(null, args, { models: { Connection } });
       expect(output).toBeNull();
     });
   });
@@ -43,14 +43,14 @@ describe('Connection Query resolvers',
     test('returns an array',
     async () => {
       mockingoose.Connection.toReturn([], 'find');
-      const output = await getConnections();
+      const output = await getConnections(null, null, { models: { Connection } });
       expect(output).toEqual([]);
     });
 
     test('contains Connection document elements',
     async () => {
       mockingoose.Connection.toReturn([new Connection()]);
-      const output = await getConnections();
+      const output = await getConnections(null, null, { models: { Connection } });
       expect(output[0]).toBeInstanceOf(Connection);
     });
   });
