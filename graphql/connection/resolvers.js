@@ -1,7 +1,10 @@
-const { Connection } = require('../../db');
+const getConnection = (
+  root,
+  { input: { id } },
+  { models: { Connection } },
+) => Connection.findById(id); // implicitly returns null when findById fails to lookup
 
-const getConnection = (root, { input: { id } }) => Connection.findById(id);
-const getConnections = () => Connection.find({});
+const getConnections = (root, args, { models: { Connection } }) => Connection.find({});
 
 const getOwner = connection => connection.getOwner();
 const getPartner = connection => connection.getPartner();
