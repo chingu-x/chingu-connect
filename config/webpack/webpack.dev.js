@@ -19,5 +19,9 @@ module.exports = merge(common, {
   devServer: {
     contentBase: './client/src',
     hot: true,
+    historyApiFallback: true,
+    proxy: {
+      '/': 'http://localhost:8008',
+    },
   },
 });
