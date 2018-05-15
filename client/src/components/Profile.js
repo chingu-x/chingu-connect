@@ -14,7 +14,7 @@ const Profile = (props) => {
   const { id } = props.props.match.params;
 
   // re-route to homepage if not logged in
-  if (id === 'null') { props.props.history.push('/home'); }
+  if (id === 'null') { props.props.history.push('/'); }
   props.handleId(props.props.match.params.id);
 
   return (
