@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 
 /**
  * Help Board component (Connections Feed)
@@ -7,7 +8,8 @@ import React from 'react';
 
 const HelpBoard = () => (
   <div>
-    Connections Feed goes here
+    <h2>Connections Feed goes here</h2>
+    <Link to="/" className="link">Go to Homepage</Link>
   </div>
 );
 

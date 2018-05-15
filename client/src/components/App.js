@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { BrowserRouter, Route, Switch } from 'react-router-dom';
+import axios from 'axios';
 import PropTypes from 'prop-types';
 import Navbar from './Navbar';
 import Landing from './Landing';
@@ -16,31 +17,40 @@ import NotFound from './NotFound';
 class App extends Component {
   constructor() {
     super();
-    this.state = { id: null };
-    this.handleId = this.handleId.bind(this);
+    this.state = {
+      signedIn: false,
+      data: {},
+    };
   }
 
-  handleId(id) {
-    if (!this.state.id) {
-      /** Set user ID in state for the navbar profile link path */
-      this.setState({ id });
-    }
+  componentDidMount() {
+    /**
+     * GitHub auth callback re-directs to homepage
+     * Get credentials from express route
+     * Save credentials to state
+     */
+    axios.get('http://localhost:8008/user', { withCredentials: true })
+      .then((res) => {
+        if (res.data._id) { this.setState({ signedIn: true, data: res.data }); }
+      })
+      .catch(err => console.log(err));
   }
 
   render() {
     return (
       <BrowserRouter>
         <div>
-          <Navbar id={this.state.id}/>
+          <Navbar props={this.state}/>
           <div className="app-container">
             <Switch>
-              <Route exact path="/" component={() => <Landing />}/>
+              <Route
+                exact path="/"
+                component={() => <Landing signedIn={this.state.signedIn} />}
+              />
               <Route exact path="/helpboard" component={() => <HelpBoard />}/>
               <Route
-                path="/:id"
-                component={
-                  props => <Profile props={props} handleId={this.handleId}/>
-                }
+                path="/user/:id"
+                component={props => <Profile props={props}/>}
               />
               <Route component={NotFound} />
             </Switch>
@@ -54,7 +64,8 @@ class App extends Component {
 App.propTypes = {
   props: PropTypes.object,
   setState: PropTypes.func,
-  id: PropTypes.string,
+  signedIn: PropTypes.bool,
+  data: PropTypes.object,
 };
 
 export default App;

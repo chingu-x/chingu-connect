@@ -3,7 +3,8 @@ import { Link } from 'react-router-dom';
 
 /**
  * Not Found component
- * Handles all routes not specified by react-router paths
+ * Handles all routes (on frontend) not specified by react-router paths
+ * Manually types URLs that are invalid are handled on backend
  */
 
 const NotFound = () => (
