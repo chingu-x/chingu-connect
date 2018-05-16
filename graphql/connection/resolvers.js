@@ -9,6 +9,20 @@ const getConnections = (root, args, { models: { Connection } }) => Connection.fi
 const getOwner = connection => connection.getOwner();
 const getPartner = connection => connection.getPartner();
 
+
+// ===== MUTATIONS ===== //
+const createConnection = (
+    root,
+    { input: { id: ownerID, title, description, timestamp, lifespan } },
+    { models: { Connection } },
+) => Connection.create({
+  ownerID,
+  title,
+  description,
+  lifespan,
+});
+
+
 module.exports = {
   getConnection,
   getConnections,
@@ -23,5 +37,7 @@ module.exports = {
     connections: getConnections,
   },
 
-  // Mutation: {}
+  Mutation: {
+    createConnection,
+  },
 };

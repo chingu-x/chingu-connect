@@ -38,6 +38,9 @@ input ConnectionInput {
   lifespan: Int
 }
 
+type ConnectionMutation {
+    createConnection(input: ConnectionInput!): Connection
+}
 # CREATE: createConnection(ConnectionInput) // ConnectionInput: { title, description, lifespan, tits, dildos }
 # // inside the method: the ownerID is injected from the logged in user in the context
 
