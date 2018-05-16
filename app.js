@@ -45,15 +45,10 @@ app.use(
 );
 app.use('/graphiql', graphiqlExpress({ endpointURL: '/graphql' }));
 
-
 // Temporary route for development
 // Fetch user information from frontend
 app.get('/user', (req, res) => {
-  if (req.user) {
-    res.send(req.user);
-  } else {
-    res.send('An error occurred while trying to fetch user.');
-  }
+  req.user ? res.send(req.user) : res.send('An error occurred while trying to fetch user.');
 });
 
 app.listen(
