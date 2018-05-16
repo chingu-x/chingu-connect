@@ -47,7 +47,10 @@ class App extends Component {
                 exact path="/"
                 component={() => <Landing signedIn={this.state.signedIn} />}
               />
-              <Route exact path="/helpboard" component={() => <HelpBoard />}/>
+              <Route
+                exact path="/helpboard"
+                component={props => <HelpBoard props={props} />}
+              />
               <Route
                 path="/user/:id"
                 component={props => <Profile props={props}/>}
