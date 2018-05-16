@@ -16,10 +16,10 @@
  *   the GraphiQL client will display what the Type schema defines
  */
 
- // a Type field resolver is the perfect place for using the 'root' parameter
- // it come in the form of a model instance for the corresponding Type
- // in this case the User database model is passed as a 'user' instance
- // now it makes  sense why the root param is first despite being unused in most other resolvers
+  // a Type field resolver is the perfect place for using the 'root' parameter
+  // it come in the form of a model instance for the corresponding Type
+  // in this case the User database model is passed as a 'user' instance
+  // now it makes  sense why the root param is first despite being unused in most other resolvers
   // it makes writing Type field resolvers clean one liners
   // especially when combined with a modern ORM like mongoose
   // mongoose provides instance methods that further support the simplistic declarative syntax
