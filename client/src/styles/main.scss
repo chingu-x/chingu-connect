@@ -1,6 +1,13 @@
+// Applies to all styles
 @import './setup/variables';
 @import './setup/base';
+
+// Component styles
 @import './components/navbar';
 @import './components/app';
 @import './components/landing';
+@import './components/helpboard';
+
+// Specific query styles
 @import './components/userQuery';
+@import './components/connectionsQuery';

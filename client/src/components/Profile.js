@@ -1,6 +1,5 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Link } from 'react-router-dom';
 import { graphql } from 'react-apollo';
 import GET_USER from '../queries/GET_USER';
 
@@ -18,7 +17,6 @@ const Profile = props => (
       <img src={props.data.user.avatar} alt="user github profile picture"/>
     </div>}
     <h1>Profile Page</h1>
-    <Link to="/" className="link">Go to Homepage</Link>
   </div>
 );
 
