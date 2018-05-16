@@ -7,7 +7,7 @@ const { makeExecutableSchema } = require('graphql-tools'); // combines type defs
 // to avoid a namespace conflict
 const { User, Query: userQueries } = require('./user/resolvers');
 // same with the Connection resolvers
-const { Connection, Query: connectionQueries } = require('./connection/resolvers');
+const { Connection, Query: connectionQueries, Mutation: connectionMutations } = require('./connection/resolvers');
 
 const typeDefs = importSchema(join(__dirname, 'schema.graphql'));
 
@@ -18,10 +18,10 @@ const resolvers = {
     ...userQueries, // here the User Type resolvers are spread (...) into the Root Query
     ...connectionQueries, // this is why we renamed them up above
   },
-  // Mutation: { // RootMutation
+  Mutation: { // RootMutation
     // ...userMutations,
-    // ...connectionMutations,
-  // },
+    ...connectionMutations,
+  },
 };
 
 /**
