@@ -7,6 +7,27 @@ export default gql`
     }) {
       username
       avatar
+      created {
+          id
+          title
+          description
+          timestamp
+          lifespan
+          owner {
+              id
+              username
+          }          
+      }
+      joined {
+        id,
+        title
+        description
+        timestamp
+        partner {
+          id
+          username
+        }
+      }
     }
   }
 `;
