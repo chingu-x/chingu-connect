@@ -19,5 +19,6 @@ module.exports = merge(common, {
   devServer: {
     contentBase: './client/src',
     hot: true,
+    historyApiFallback: true,
   },
 });

@@ -7,10 +7,6 @@ const port = process.env.PORT || 8008;
 const publicPath = resolve(__dirname, '..', 'client/dist');
 
 app.use(express.static(publicPath));
-app.listen(
-  port,
-  (error) => { if (error) throw new Error(error); },
-);
 
 // -- MIDDLEWARE -- //
 const middleware = require('./config/appMiddleware');
@@ -44,7 +40,18 @@ app.use(
     context: {
       authUser: user, // destructured from the 'req' parameter: req.user --> { user } --> remember (1 dot = 1 { } )
       models, // database models so they dont need to be imported on each resolver file
-    }
+    },
   })),
 );
 app.use('/graphiql', graphiqlExpress({ endpointURL: '/graphql' }));
+
+// Temporary route for development
+// Fetch user information from frontend
+app.get('/user', (req, res) => {
+  req.user ? res.send(req.user) : res.send('An error occurred while trying to fetch user.');
+});
+
+app.listen(
+  port,
+  (error) => { if (error) throw new Error(error); },
+);

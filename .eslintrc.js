@@ -6,7 +6,24 @@ module.exports = {
   },
   plugins: ["react"],
   "rules": {
+    "no-console": "off",
+    "no-unused-expressions": [1, { "allowTernary": true }],
     "linebreak-style": 0,
     "no-underscore-dangle": 0,
+    "class-methods-use-this": ["warn", {
+      "exceptMethods": [
+        "render",
+        "getInitialState",
+        "getDefaultProps",
+        "getChildContext",
+        "componentWillMount",
+        "componentDidMount",
+        "componentWillReceiveProps",
+        "shouldComponentUpdate",
+        "componentWillUpdate",
+        "componentDidUpdate",
+        "componentWillUnmount",
+      ],
+    }],
   },
 };

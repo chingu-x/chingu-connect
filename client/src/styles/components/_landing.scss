@@ -1,0 +1,36 @@
+.landing-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.login-button {
+  font-weight: 700;
+  padding: 10px 20px;
+  margin-top: 40px;
+  font-size: 18px;
+  color: $off-white;
+  background-color: lighten($off-black, 10%);
+
+  &:hover {
+    background-color: $off-black;
+  }
+}
+
+.login-button__icon {
+  padding-right: 10px;
+  font-size: 27px;
+}
+
+.landing-card {
+  padding: 30px;
+  border-radius: 3px;
+  box-shadow: 0 10px 6px -6px grey;  
+  background-color: $chingu-blue;
+  color: $off-white;
+
+  h1 {
+    color: $chingu-green;
+  }
+}
