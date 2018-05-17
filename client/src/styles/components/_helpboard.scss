@@ -5,3 +5,22 @@
   align-items: center;
   margin-top: 100px;
 }
+
+.create-button {
+  padding: 10px 20px;
+  color: $off-white;
+  background-color: $chingu-green;
+  font-size: 1.2em;
+  font-weight: 700;
+  text-transform: uppercase;
+  border: none;
+  text-decoration: none;
+
+  &:hover {
+    background-color: darken($chingu-green, 10%);
+  }
+
+  span {
+    padding-right: 10px;
+  }
+}

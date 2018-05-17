@@ -5,6 +5,7 @@ import PropTypes from 'prop-types';
 import Navbar from './Navbar';
 import Landing from './Landing';
 import HelpBoard from './HelpBoard';
+import CreateConnection from './CreateConnection';
 import Profile from './Profile';
 import NotFound from './NotFound';
 
@@ -50,6 +51,10 @@ class App extends Component {
               <Route
                 exact path="/helpboard"
                 component={props => <HelpBoard props={props} />}
+              />
+              <Route
+                exact path="/new"
+                component={() => <CreateConnection id={this.state.data._id}/>}
               />
               <Route
                 path="/user/:id"

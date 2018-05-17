@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { graphql } from 'react-apollo';
 import GET_CONNECTIONS from '../queries/GET_CONNECTIONS';
@@ -13,7 +14,11 @@ const HelpBoard = (props) => {
 
   return (
     <div className="helpboard-container">
-      <h2>Connections Feed goes here</h2>
+      <h1>Connect with other users!</h1>
+      <Link to="/new" className="button create-button">
+        <span><i className="fas fa-plus"></i></span>
+        new connection
+      </Link>
       {
         /**
          * Map through all created connections
