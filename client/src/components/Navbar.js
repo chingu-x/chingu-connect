@@ -13,11 +13,16 @@ const Navbar = ({ props }) => {
   const { signedIn, data } = props;
 
   return (
-    <div className="navbar-container">
-      <NavLink to="/" className="link navbar-link">Home</NavLink>
-      <NavLink to="/helpboard" className="link navbar-link">Help Board</NavLink>
-      {signedIn && <NavLink to={`/user/${data._id}`} className="link navbar-link">Profile</NavLink>}
-      {signedIn && <a href="http://localhost:8008/auth/logout" className="link navbar-link">Sign Out</a>}
+    <div>
+      {signedIn &&
+        <div className="navbar-container">
+          <NavLink to="/" id="chingu" className="link navbar-link">
+            <img src="https://avatars1.githubusercontent.com/u/28485958?s=200&v=4" alt="chingu logo"/>
+          </NavLink>
+          <NavLink to="/helpboard" className="link navbar-link">Help Board</NavLink>
+          <NavLink to={`/user/${data._id}`} className="link navbar-link">Profile</NavLink>
+          <a href="http://localhost:8008/auth/logout" className="link navbar-link">Sign Out</a>
+        </div>}
     </div>
   );
 };

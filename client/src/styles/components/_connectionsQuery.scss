@@ -1,20 +1,27 @@
 .connections-query-container {
   display: flex;
   flex-wrap: wrap;
-  justify-content: space-between;
+  justify-content: flex-start;
   margin: 20px 30px;
+}
+
+.connection-card-wrapper {
+  display: flex;
+  flex: 1 1;
+  flex-wrap: wrap;
+  justify-content: center;
 }
 
 .connection-card {
   display: flex;
   flex-direction: column;
+  justify-content: space-between;
   padding: 20px;
   margin: 20px 10px;
   background-color: $chingu-blue;
   color: $off-white;
   border-radius: 3px;
   box-shadow: 0 10px 15px -6px grey;
-  width: 400px;
 
   p {
     margin: 5px 0;
@@ -23,11 +30,14 @@
 
 .connection-card-button-wrapper {
   display: flex;
-  justify-content: space-around;
+  justify-content: space-between;
   padding: 20px 0 10px 0;
 
   button {
+    display: flex;
+    justify-content: center;
     padding: 5px 10px;
+    margin: 0 5px;
     color: $off-white;
     background-color: $chingu-green;
     font-size: 1.2em;
@@ -35,6 +45,7 @@
     outline: none;
     text-transform: uppercase;
     font-weight: 700;
+    width: 100px;
 
     &:hover {
       background-color: darken($chingu-green, 10%);
