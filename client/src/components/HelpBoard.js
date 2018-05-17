@@ -3,6 +3,8 @@ import PropTypes from 'prop-types';
 import { graphql } from 'react-apollo';
 import GET_CONNECTIONS from '../queries/GET_CONNECTIONS';
 
+import ConnectionCard from './ConnectionCard';
+
 /**
  * Help Board component (Connections Feed)
  * Returns continuous feed of all connection cards created
@@ -22,23 +24,9 @@ const HelpBoard = (props) => {
          */
         props.data.connections &&
         <div className="connections-query-container">
-          {props.data.connections.map((connection, index) => {
-            const { title, description, owner, timestamp } = connection;
-            const date = new Date(Number(timestamp)).toString();
-
-            return (
-              <div key={index} className="connection-card">
-                <p>Created: {date}</p>
-                <p>By: {owner.username}</p>
-                <h3>{title}</h3>
-                <p>{description}</p>
-                <div className="connection-card-button-wrapper">
-                  <button className="button">Details</button>
-                  <button className="button">Join</button>
-                </div>
-              </div>
-            );
-          })}
+          {props.data.connections.map((connection, index) => (
+            <ConnectionCard key={ index } connection={ connection } index={ index }/>
+          ))}
         </div>
       }
     </div>
