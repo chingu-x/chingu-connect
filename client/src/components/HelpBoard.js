@@ -4,6 +4,8 @@ import PropTypes from 'prop-types';
 import { graphql } from 'react-apollo';
 import GET_CONNECTIONS from '../queries/GET_CONNECTIONS';
 
+import ConnectionCard from './ConnectionCard';
+
 /**
  * Help Board component (Connections Feed)
  * Returns continuous feed of all connection cards created
@@ -11,6 +13,7 @@ import GET_CONNECTIONS from '../queries/GET_CONNECTIONS';
 
 class HelpBoard extends Component {
   componentDidMount() {
+    console.log('this got hit');
     this.props.data.refetch();
   }
 
@@ -32,31 +35,11 @@ class HelpBoard extends Component {
            */
           data.connections &&
           <div className="connections-query-container">
-            {data.connections.map((connection, index) => {
-              const { title, description, owner, timestamp } = connection;
-              const date = new Date(Number(timestamp)).toString();
-
-              return (
-                <div key={index} className="connection-card-wrapper">
-                  <div className="connection-card">
-                    <p>Created: {date}</p>
-                    <p>By: {owner.username}</p>
-                    <h3>{title}</h3>
-                    <p>
-                      { /** Truncate description string to 200 characters */
-                        description.length > 200 ?
-                        `${description.substring(0, 200)}...` :
-                        description
-                      }
-                    </p>
-                    <div className="connection-card-button-wrapper">
-                      <button className="button">Details</button>
-                      <button className="button">Join</button>
-                    </div>
-                  </div>
-                </div>
-              );
-            })}
+            {data.connections.map((connection, index) => (
+              <div key={index} className="connection-card-wrapper">
+                <ConnectionCard connection={connection} index={index}/>
+              </div>
+            ))}
           </div>
         }
       </div>
