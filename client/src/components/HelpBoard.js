@@ -9,8 +9,8 @@ import GET_CONNECTIONS from '../queries/GET_CONNECTIONS';
  * Returns continuous feed of all connection cards created
  */
 
-const HelpBoard = (props) => {
-  console.log('From helpboard: ', props);
+const HelpBoard = ({ loading, error, data }) => {
+  console.log('From helpboard: ', loading, error, data);
 
   return (
     <div className="helpboard-container">
@@ -19,15 +19,17 @@ const HelpBoard = (props) => {
         <span><i className="fas fa-plus"></i></span>
         new connection
       </Link>
+      {loading && <h2>Loading Connections...</h2>}
+      {error && <h2>Error trying to fetch connections!</h2>}
       {
         /**
          * Map through all created connections
          * Create a card for each connection
-         * TODO: order the cards by date/time created
+         * TODO: order the cards by date/time created || ending soonest?
          */
-        props.data.connections &&
+        data.connections &&
         <div className="connections-query-container">
-          {props.data.connections.map((connection, index) => {
+          {data.connections.map((connection, index) => {
             const { title, description, owner, timestamp } = connection;
             const date = new Date(Number(timestamp)).toString();
 
@@ -51,8 +53,9 @@ const HelpBoard = (props) => {
 };
 
 HelpBoard.propTypes = {
-  props: PropTypes.object,
   data: PropTypes.object,
+  loading: PropTypes.object,
+  error: PropTypes.object,
   connection: PropTypes.array,
   map: PropTypes.func,
 };
