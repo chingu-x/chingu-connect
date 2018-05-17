@@ -7,11 +7,17 @@ const ConnectionCard = ({ connection, index }) => {
   const date = new Date(Number(timestamp)).toString();
 
   return (
-    <div key={ index } className="connection-card">
-      <p>Created: { date }</p>
-      <p>By: { owner.username }</p>
-      <h3>{ title }</h3>
-      <p>{ description }</p>
+    <div key={index} className="connection-card">
+      <p>Created: {date}</p>
+      <p>By: {owner.username}</p>
+      <h3>{title}</h3>
+      <p>
+        { /** Truncate description string to 200 characters */
+          description.length > 200 ?
+          `${description.substring(0, 200)}...` :
+          description
+        }
+      </p>
       <div className="connection-card-button-wrapper">
         <button className="button">Details</button>
         <button className="button">Join</button>
