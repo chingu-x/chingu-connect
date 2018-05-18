@@ -13,14 +13,19 @@ const getPartner = connection => connection.getPartner();
 // ===== MUTATIONS ===== //
 const createConnection = (
     root,
-    { input: { id: ownerID, title, description, timestamp, lifespan } },
+    { input: { id: ownerID, title, description, lifespan } },
     { models: { Connection } },
-) => Connection.create({
-  ownerID,
-  title,
-  description,
-  lifespan,
-});
+) => {
+  if (!ownerID || !title || !description || !lifespan) {
+    throw new Error('Missing Required Fields');
+  }
+  return new Connection({
+    ownerID,
+    title,
+    description,
+    lifespan,
+  });
+};
 
 
 module.exports = {
