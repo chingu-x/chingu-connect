@@ -3,10 +3,9 @@ import { withRouter } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { graphql } from 'react-apollo';
 import CREATE_CONNECTION from '../mutations/CREATE_CONNECTION';
+import GET_CONNECTIONS from '../queries/GET_CONNECTIONS';
 
 const CreateConnection = ({ props, mutate, id }) => {
-  console.log('from create: ', id);
-
   const validateData = (e) => {
     e.preventDefault();
 
@@ -17,8 +16,8 @@ const CreateConnection = ({ props, mutate, id }) => {
         description: e.target.elements.description.value,
         lifespan: e.target.elements.lifespan.value,
       },
-    })
-      .then(props.history.push('/helpboard'));
+      refetchQueries: [{ query: GET_CONNECTIONS }],
+    }).then(props.history.push('/helpboard'));
   };
 
   return (
