@@ -4,11 +4,10 @@ import PropTypes from 'prop-types';
 
 const ConnectionCard = ({ connection, index }) => {
   const { title, description, owner, timestamp } = connection;
-  const date = new Date(Number(timestamp)).toString();
 
   return (
     <div key={index} className="connection-card">
-      <p>Created: {date}</p>
+      <p>Created: {timestamp}</p>
       <p>By: {owner.username}</p>
       <h3>{title}</h3>
       <p>

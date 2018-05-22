@@ -28,8 +28,8 @@ const ConnectionSchema = new mongoose.Schema({
     },
   },
   timestamp: {
-    type: String,
-    default: String(Date.now()),
+    type: Date,
+    default: Date.now,
   },
   lifespan: {
     type: Number,

@@ -19,7 +19,7 @@ const createConnection = (
   if (!ownerID || !title || !description || !lifespan) {
     throw new Error('Missing Required Fields');
   }
-  return new Connection({
+  return Connection.create({
     ownerID,
     title,
     description,
