@@ -38,6 +38,14 @@ input ConnectionInput {
   lifespan: Int
 }
 
+input JoinConnectionInput {
+  "##### **`_immutable_`** object ID of **Connection** document"
+  id: ID
+  "#### **`_immutable_`** object ID of **User** document"
+  partnerID: ID
+  
+}
+
 type ConnectionMutation {
     createConnection(input: ConnectionInput!): Connection
 }

@@ -42,7 +42,8 @@ const ConnectionSchema = new mongoose.Schema({
 
 // -- MIDDLEWARE -- //
 function ownerDifferentFromPartner(next) {
-  if (this.ownerID !== this.partnerID) return next();
+    // ===== If this fails, then we want to throw so Mongoose will catch it ===== //
+  if (this.ownerID !== this.partnerID) throw new Error('Owner can not be same as partner');
 
   const { ValidationError, ValidatorError } = mongoose.Error;
   const error = new ValidationError(this);

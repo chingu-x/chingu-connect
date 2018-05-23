@@ -27,6 +27,26 @@ const createConnection = (
   });
 };
 
+// ===== This function needs the .save() at the end ===== //
+// ===== as that is how our custom Mongoose validations are checked before =====//
+const joinConnection = async (
+    root,
+    { input: { id, partnerID } },
+    { models: { Connection } },
+) => {
+  try {
+    if (!id || !partnerID) throw new Error('Missing Required Fields');
+
+    const connection = await Connection.findByIdAndUpdate(
+      id,
+      { $set: { partnerID } },
+      { updated: true },
+    );
+
+    return connection.save();
+  } catch (e) { throw new Error(e); }
+};
+
 
 module.exports = {
   getConnection,
@@ -44,5 +64,6 @@ module.exports = {
 
   Mutation: {
     createConnection,
+    joinConnection,
   },
 };

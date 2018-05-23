@@ -5,6 +5,7 @@ export default gql`
     user (input: {
       id: $id
     }) {
+      id
       username
       avatar
       created {
