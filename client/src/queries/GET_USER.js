@@ -17,13 +17,21 @@ export default gql`
           owner {
               id
               username
-          }          
+          } 
+          partner {
+              id
+              username
+          }         
       }
       joined {
         id,
         title
         description
         timestamp
+        owner {
+            id
+            username
+        }
         partner {
           id
           username
