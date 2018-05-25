@@ -42,6 +42,8 @@ const ConnectionSchema = new mongoose.Schema({
 
 // -- MIDDLEWARE -- //
 function ownerDifferentFromPartner(next) {
+  // ===== First time this is created, bypass the validation ===== //
+  if (this.isNew) return next();
   // ===== Need to compare string types as Mongoose's ObjectIDs are objects themselves ===== //
   if (this.ownerID.toString() !== this.partnerID.toString()) return next();
 
@@ -63,12 +65,13 @@ function ownerDifferentFromPartner(next) {
  * into a connection that already has a partner
  */
 function hasPartner(next) {
+  if (this.isNew) return next();
   if (!this.partnerID) return next();
   throw new Error('Connection has an existing partner');
 }
 
-ConnectionSchema.pre('save', ownerDifferentFromPartner);
-ConnectionSchema.pre('save', hasPartner);
+// ConnectionSchema.pre('save', ownerDifferentFromPartner);
+// ConnectionSchema.pre('save', hasPartner);
 
 // -- INSTANCE METHODS -- //
 
