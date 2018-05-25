@@ -5,6 +5,7 @@ export default gql`
     user (input: {
       id: $id
     }) {
+      id
       username
       avatar
       created {
@@ -16,13 +17,21 @@ export default gql`
           owner {
               id
               username
-          }          
+          } 
+          partner {
+              id
+              username
+          }         
       }
       joined {
         id,
         title
         description
         timestamp
+        owner {
+            id
+            username
+        }
         partner {
           id
           username

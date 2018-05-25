@@ -1,7 +1,7 @@
 # call import statements in here to import the types from each file
 # wildcard import: *
 
-# import Connection, ConnectionInput from './connection/connection.graphql'
+# import Connection, ConnectionInput, JoinConnectionInput from './connection/connection.graphql'
 # import User, UserInput from './user/user.graphql'
 
 # RootQuery def
@@ -16,4 +16,6 @@ type Query {
 # RootMutation def
 type Mutation { 
     createConnection(input: ConnectionInput!): Connection
+    joinConnection(input: JoinConnectionInput!): Connection
+
 }

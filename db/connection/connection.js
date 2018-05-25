@@ -42,7 +42,10 @@ const ConnectionSchema = new mongoose.Schema({
 
 // -- MIDDLEWARE -- //
 function ownerDifferentFromPartner(next) {
-  if (this.ownerID !== this.partnerID) return next();
+  // ===== First time this is created, bypass the validation ===== //
+  if (this.isNew) return next();
+  // ===== Need to compare string types as Mongoose's ObjectIDs are objects themselves ===== //
+  if (this.ownerID.toString() !== this.partnerID.toString()) return next();
 
   const { ValidationError, ValidatorError } = mongoose.Error;
   const error = new ValidationError(this);
@@ -53,10 +56,22 @@ function ownerDifferentFromPartner(next) {
     value: this.ownerID,
     reason: 'Attempt to save new Connection document with ownerID matching partnerID',
   });
-  return next(error);
+  // ===== If this fails, then we want to throw so Mongoose will catch it ===== //
+  throw new Error(error);
 }
 
-ConnectionSchema.pre('save', ownerDifferentFromPartner);
+/**
+ * Should throw an error if somebody attempts to add themselves
+ * into a connection that already has a partner
+ */
+function hasPartner(next) {
+  if (this.isNew) return next();
+  if (!this.partnerID) return next();
+  throw new Error('Connection has an existing partner');
+}
+
+// ConnectionSchema.pre('save', ownerDifferentFromPartner);
+// ConnectionSchema.pre('save', hasPartner);
 
 // -- INSTANCE METHODS -- //
 
