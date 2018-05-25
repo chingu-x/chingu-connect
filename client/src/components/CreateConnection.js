@@ -4,6 +4,7 @@ import PropTypes from 'prop-types';
 import { graphql } from 'react-apollo';
 import CREATE_CONNECTION from '../mutations/CREATE_CONNECTION';
 import GET_CONNECTIONS from '../queries/GET_CONNECTIONS';
+import GET_USER from '../queries/GET_USER';
 
 const CreateConnection = ({ props, mutate, id }) => {
   const validateData = (e) => {
@@ -16,8 +17,11 @@ const CreateConnection = ({ props, mutate, id }) => {
         description: e.target.elements.description.value,
         lifespan: e.target.elements.lifespan.value,
       },
-      refetchQueries: [{ query: GET_CONNECTIONS }],
-    }).then(props.history.push('/helpboard'));
+      refetchQueries: [
+        { query: GET_CONNECTIONS },
+        { query: GET_USER, variables: { id } },
+      ],
+    }).then(props.history.push('/expressboard'));
   };
 
   return (

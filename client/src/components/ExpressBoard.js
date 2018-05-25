@@ -6,12 +6,12 @@ import GET_CONNECTIONS from '../queries/GET_CONNECTIONS';
 import ConnectionCard from './ConnectionCard';
 
 /**
- * Help Board component (Connections Feed)
+ * Express Board component (Connections Feed)
  * Returns continuous feed of all connection cards created
  */
 
-const HelpBoard = ({ data }) => (
-  <div className="helpboard-container">
+const ExpressBoard = ({ data }) => (
+  <div className="expressboard-container">
     <h1>Connect with other users!</h1>
     <Link to="/new" className="button create-button">
       <span><i className="fas fa-plus"></i></span>
@@ -35,10 +35,10 @@ const HelpBoard = ({ data }) => (
   </div>
 );
 
-HelpBoard.propTypes = {
+ExpressBoard.propTypes = {
   data: PropTypes.object,
   connection: PropTypes.array,
   map: PropTypes.func,
 };
 
-export default graphql(GET_CONNECTIONS)(HelpBoard);
+export default graphql(GET_CONNECTIONS)(ExpressBoard);

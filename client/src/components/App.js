@@ -4,7 +4,7 @@ import axios from 'axios';
 import PropTypes from 'prop-types';
 import Navbar from './Navbar';
 import Landing from './Landing';
-import HelpBoard from './HelpBoard';
+import ExpressBoard from './ExpressBoard';
 import CreateConnection from './CreateConnection';
 import Profile from './Profile';
 import NotFound from './NotFound';
@@ -49,8 +49,8 @@ class App extends Component {
                 component={() => <Landing signedIn={this.state.signedIn} />}
               />
               <Route
-                exact path="/helpboard"
-                component={props => <HelpBoard props={props} />}
+                exact path="/expressboard"
+                component={props => <ExpressBoard props={props} />}
               />
               <Route
                 exact path="/new"
