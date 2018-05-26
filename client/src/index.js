@@ -1,22 +1,22 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+import { Provider } from 'react-redux';
 import { AppContainer } from 'react-hot-loader';
 import { ApolloProvider } from 'react-apollo';
-import ApolloClient from 'apollo-boost';
-import App from './components/App';
-import './styles/main.scss';
 
-// uri defaults to `/graphql`
-const client = new ApolloClient({
-  uri: 'http://localhost:8008/graphql',
-});
+import './styles/main.scss';
+import App from './components/App';
+import store from './helpers/store';
+import client from './helpers/client';
 
 ReactDOM.render(
-  <ApolloProvider client={client}>
-    <AppContainer>
-      <App />
-    </AppContainer>
-  </ApolloProvider>,
+  <Provider store={store}>
+    <ApolloProvider client={client}>
+      <AppContainer>
+        <App />
+      </AppContainer>
+    </ApolloProvider>
+  </Provider>,
   document.getElementById('root'),
 );
 
@@ -24,11 +24,13 @@ ReactDOM.render(
 if (module.hot) {
   module.hot.accept('./components/App', () => {
     ReactDOM.render(
-      <ApolloProvider client={client}>
-        <AppContainer>
-          <App />
-        </AppContainer>
-      </ApolloProvider>,
+      <Provider store={store}>
+        <ApolloProvider client={client}>
+          <AppContainer>
+            <App />
+          </AppContainer>
+        </ApolloProvider>
+      </Provider>,
       document.getElementById('root'),
     );
   });
