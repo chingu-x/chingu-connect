@@ -1,6 +1,8 @@
 import { FETCH_USER, SIGN_OUT_USER } from '../actions/types';
 
 const session = JSON.parse(sessionStorage.getItem('session'));
+
+// Setup initial redux store
 const initialState = session ?
   { signedIn: true, creds: session, error: '' } :
   { signedIn: false, creds: {}, error: '' };

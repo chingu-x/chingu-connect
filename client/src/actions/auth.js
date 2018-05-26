@@ -3,10 +3,9 @@ import { FETCH_USER, SIGN_OUT_USER } from './types';
 
 /*
  * FETCH USER ACTION
- * Pass in ID to backend route
  * Dispatch type and data
  * Store user data in sessionStorage
- * @param {String} id: fetch user information
+ * @param {Object} data: store user information
  */
 
 export const fetchUser = data => (dispatch) => {
@@ -15,7 +14,7 @@ export const fetchUser = data => (dispatch) => {
 };
 
 /*
- * LOGOUT USER ACTION
+ * SIGN OUT USER ACTION
  * Dispatch type
  * Remove user data from sessionStorage
  */

@@ -3,6 +3,8 @@ import { BrowserRouter, Route, Switch } from 'react-router-dom';
 import { connect } from 'react-redux';
 import axios from 'axios';
 import PropTypes from 'prop-types';
+
+// Components
 import Navbar from './Navbar';
 import Landing from './Landing';
 import ExpressBoard from './ExpressBoard';
@@ -10,6 +12,7 @@ import CreateConnection from './CreateConnection';
 import Profile from './Profile';
 import NotFound from './NotFound';
 
+// Actions
 import { fetchUser } from '../actions/auth';
 
 /**
@@ -28,7 +31,7 @@ class App extends Component {
     /**
      * GitHub auth callback re-directs to homepage
      * Get credentials from express route
-     * Save credentials to state
+     * Pass credentials to redux store
      */
     axios.get('http://localhost:8008/user', { withCredentials: true })
       .then((res) => {
