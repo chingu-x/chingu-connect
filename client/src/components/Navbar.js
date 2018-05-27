@@ -1,16 +1,19 @@
 import React from 'react';
+import { connect } from 'react-redux';
 import { NavLink } from 'react-router-dom';
 import PropTypes from 'prop-types';
+
+import { signoutUser } from '../actions/auth';
 
 /**
  * Navigation bar component
  * Returns react-router anchors to the help board and profile components
- * @param {Object} props.data: Get user ID from state for profile path
- * @param {Object} loggedIn: If signed in, show 'profile' and 'sign out' links
+ * @param {Object} creds: Get user ID from redux store for profile path
+ * @param {Object} signedIn: If signed in, show 'profile' and 'sign out' links
  */
 
-const Navbar = ({ props }) => {
-  const { signedIn, data } = props;
+const Navbar = (props) => {
+  const { signedIn, creds } = props.auth;
 
   return (
     <div>
@@ -20,8 +23,8 @@ const Navbar = ({ props }) => {
             <img src="https://avatars1.githubusercontent.com/u/28485958?s=200&v=4" alt="chingu logo"/>
           </NavLink>
           <NavLink to="/expressboard" className="link navbar-link">Express Board</NavLink>
-          <NavLink to={`/user/${data._id}`} className="link navbar-link">Profile</NavLink>
-          <a href="http://localhost:8008/auth/logout" className="link navbar-link">Sign Out</a>
+          <NavLink to={`/user/${creds._id}`} className="link navbar-link">Profile</NavLink>
+          <a href="http://localhost:8008/auth/logout" className="link navbar-link" onClick={() => props.dispatch(signoutUser())}>Sign Out</a>
         </div>}
     </div>
   );
@@ -29,9 +32,15 @@ const Navbar = ({ props }) => {
 
 Navbar.propTypes = {
   props: PropTypes.object,
-  data: PropTypes.object,
+  creds: PropTypes.object,
   signedIn: PropTypes.bool,
+  auth: PropTypes.object,
+  dispatch: PropTypes.func,
 };
 
-export default Navbar;
+const mapStateToProps = state => ({
+  auth: state.auth,
+});
+
+export default (connect(mapStateToProps)(Navbar));
 

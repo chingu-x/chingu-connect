@@ -1,4 +1,5 @@
 import React from 'react';
+import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 
 /**
@@ -7,7 +8,7 @@ import PropTypes from 'prop-types';
  * @param {boolean} signedIn: if user is signed in, hide github button
  */
 
-const Landing = ({ signedIn }) => {
+const Landing = ({ auth }) => {
   const handleGithubLogin = () => {
     // Temporarily hard-coding backend route for github auth
     window.location = 'http://localhost:8008/auth/login';
@@ -19,7 +20,7 @@ const Landing = ({ signedIn }) => {
         <h1>Chingu Connect</h1>
         <p>A tool to optimally connect learners. Designed serendipity</p>
       </div>
-      {!signedIn &&
+      {!auth.signedIn &&
       <button className="button login-button" onClick={() => handleGithubLogin()}>
       <span className="login-button__icon">
         <i className="fab fa-github"></i>
@@ -31,7 +32,12 @@ const Landing = ({ signedIn }) => {
 };
 
 Landing.propTypes = {
+  auth: PropTypes.object,
   signedIn: PropTypes.bool,
 };
 
-export default Landing;
+const mapStateToProps = state => ({
+  auth: state.auth,
+});
+
+export default (connect(mapStateToProps)(Landing));

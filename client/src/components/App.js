@@ -1,13 +1,19 @@
 import React, { Component } from 'react';
 import { BrowserRouter, Route, Switch } from 'react-router-dom';
+import { connect } from 'react-redux';
 import axios from 'axios';
 import PropTypes from 'prop-types';
+
+// Components
 import Navbar from './Navbar';
 import Landing from './Landing';
 import ExpressBoard from './ExpressBoard';
 import CreateConnection from './CreateConnection';
 import Profile from './Profile';
 import NotFound from './NotFound';
+
+// Actions
+import { fetchUser } from '../actions/auth';
 
 /**
  * Main JS file for application
@@ -18,21 +24,18 @@ import NotFound from './NotFound';
 class App extends Component {
   constructor() {
     super();
-    this.state = {
-      signedIn: false,
-      data: {},
-    };
+    this.state = {};
   }
 
   componentDidMount() {
     /**
      * GitHub auth callback re-directs to homepage
      * Get credentials from express route
-     * Save credentials to state
+     * Pass credentials to redux store
      */
     axios.get('http://localhost:8008/user', { withCredentials: true })
       .then((res) => {
-        if (res.data._id) { this.setState({ signedIn: true, data: res.data }); }
+        if (res.data._id) { this.props.dispatch(fetchUser(res.data)); }
       })
       .catch(err => console.log(err));
   }
@@ -41,12 +44,12 @@ class App extends Component {
     return (
       <BrowserRouter>
         <div>
-          <Navbar props={this.state}/>
+          <Navbar/>
           <div className="app-container">
             <Switch>
               <Route
                 exact path="/"
-                component={() => <Landing signedIn={this.state.signedIn} />}
+                component={() => <Landing/>}
               />
               <Route
                 exact path="/expressboard"
@@ -74,6 +77,11 @@ App.propTypes = {
   setState: PropTypes.func,
   signedIn: PropTypes.bool,
   data: PropTypes.object,
+  dispatch: PropTypes.func,
 };
 
-export default App;
+const mapStateToProps = state => ({
+  auth: state.auth,
+});
+
+export default (connect(mapStateToProps)(App));
