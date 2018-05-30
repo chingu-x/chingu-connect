@@ -29,7 +29,6 @@ class ExpressBoard extends Component {
   }
 
   render() {
-    console.log('LOADING STUFF', this.props);
     return (
       <div className="expressboard-container">
         <h1>Connect with other users!</h1>

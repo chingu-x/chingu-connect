@@ -4,10 +4,12 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { graphql } from 'react-apollo';
 import CREATE_CONNECTION from '../mutations/CREATE_CONNECTION';
-import GET_CONNECTIONS from '../queries/GET_CONNECTIONS';
-import GET_USER from '../queries/GET_USER';
 
-const CreateConnection = ({ props, auth, mutate }) => {
+// Actions
+import { addConnection } from '../actions/connections';
+
+const CreateConnection = (props) => {
+  const { auth, mutate } = props;
   const id = auth.creds._id;
 
   const validateData = (e) => {
@@ -20,11 +22,10 @@ const CreateConnection = ({ props, auth, mutate }) => {
         description: e.target.elements.description.value,
         lifespan: e.target.elements.lifespan.value,
       },
-      refetchQueries: [
-        { query: GET_CONNECTIONS },
-        { query: GET_USER, variables: { id } },
-      ],
-    }).then(props.history.push('/expressboard'));
+    }).then((results) => {
+      props.dispatch(addConnection(results.data.createConnection));
+      props.props.history.push('/expressboard');
+    });
   };
 
   return (
@@ -66,9 +67,9 @@ const CreateConnection = ({ props, auth, mutate }) => {
 
 CreateConnection.propTypes = {
   props: PropTypes.object,
-  history: PropTypes.object,
   mutate: PropTypes.func,
   auth: PropTypes.object,
+  dispatch: PropTypes.func,
 };
 
 const mapStateToProps = state => ({

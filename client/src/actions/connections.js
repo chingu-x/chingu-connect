@@ -4,8 +4,7 @@ import { FETCH_CONNECTIONS, ADD_CONNECTION } from './types';
 /*
  * FETCH CONNECTIONS ACTION
  * Dispatch type and data
- * Store connections data in sessionStorage
- * @param {Object} data: store user information
+ * @param {Object} data: store connections
  */
 
 export const fetchConnections = data => (dispatch) => {
@@ -13,10 +12,10 @@ export const fetchConnections = data => (dispatch) => {
 };
 
 /*
- * FETCH CONNECTION ACTION
+ * ADD CONNECTION ACTION
  * Dispatch type and data
- * Remove user data from sessionStorage
+ * @param {Object} data: store newly created connection
  */
-export const fetchConnection = data => (dispatch) => {
+export const addConnection = data => (dispatch) => {
   dispatch({ type: ADD_CONNECTION, payload: data });
 };

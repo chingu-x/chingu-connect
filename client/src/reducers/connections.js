@@ -5,7 +5,10 @@ export default (state = null, action) => {
     case FETCH_CONNECTIONS:
       return action.payload;
     case ADD_CONNECTION:
-      return action.payload;
+      return [
+        ...state,
+        action.payload,
+      ];
     default:
       return state;
   }
