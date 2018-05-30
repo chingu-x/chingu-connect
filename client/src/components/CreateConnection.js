@@ -1,12 +1,15 @@
 import React from 'react';
 import { withRouter } from 'react-router-dom';
+import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { graphql } from 'react-apollo';
 import CREATE_CONNECTION from '../mutations/CREATE_CONNECTION';
 import GET_CONNECTIONS from '../queries/GET_CONNECTIONS';
 import GET_USER from '../queries/GET_USER';
 
-const CreateConnection = ({ props, mutate, id }) => {
+const CreateConnection = ({ props, auth, mutate }) => {
+  const id = auth.creds._id;
+
   const validateData = (e) => {
     e.preventDefault();
 
@@ -64,9 +67,16 @@ const CreateConnection = ({ props, mutate, id }) => {
 CreateConnection.propTypes = {
   props: PropTypes.object,
   history: PropTypes.object,
-  push: PropTypes.func,
   mutate: PropTypes.func,
-  id: PropTypes.string,
+  auth: PropTypes.object,
 };
 
-export default withRouter(graphql(CREATE_CONNECTION)(CreateConnection));
+const mapStateToProps = state => ({
+  auth: state.auth,
+});
+
+export default (withRouter(
+  graphql(CREATE_CONNECTION)(
+    (connect(mapStateToProps)(CreateConnection)),
+  ),
+));

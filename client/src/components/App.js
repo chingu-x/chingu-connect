@@ -57,7 +57,7 @@ class App extends Component {
               />
               <Route
                 exact path="/new"
-                component={props => <CreateConnection id={this.state.data._id} props={props}/>}
+                component={props => <CreateConnection props={props}/>}
               />
               <Route
                 path="/user/:id"
