@@ -9,6 +9,17 @@ export default gql`
       lifespan: $lifespan,
     }) {
       id
+      title
+      description
+      lifespan
+      timestamp
+      owner {
+        id
+        username
+      }
+      partner {
+        id
+      }
     }
   }
 `;

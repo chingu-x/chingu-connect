@@ -30,14 +30,17 @@ class App extends Component {
   componentDidMount() {
     /**
      * GitHub auth callback re-directs to homepage
+     * Check if signed in first
      * Get credentials from express route
      * Pass credentials to redux store
      */
-    axios.get('http://localhost:8008/user', { withCredentials: true })
+    if (!this.props.auth.creds.signedIn) {
+      axios.get('http://localhost:8008/user', { withCredentials: true })
       .then((res) => {
         if (res.data._id) { this.props.dispatch(fetchUser(res.data)); }
       })
       .catch(err => console.log(err));
+    }
   }
 
   render() {
@@ -78,6 +81,7 @@ App.propTypes = {
   signedIn: PropTypes.bool,
   data: PropTypes.object,
   dispatch: PropTypes.func,
+  auth: PropTypes.object,
 };
 
 const mapStateToProps = state => ({
