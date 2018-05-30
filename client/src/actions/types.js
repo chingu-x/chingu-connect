@@ -1,2 +1,4 @@
 export const FETCH_USER = 'FETCH_USER';
 export const SIGN_OUT_USER = 'SIGN_OUT_USER';
+export const FETCH_CONNECTIONS = 'FETCH_CONNECTIONS';
+export const FETCH_CONNECTION = 'FETCH_CONNECTION';

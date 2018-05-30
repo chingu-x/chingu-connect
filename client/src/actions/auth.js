@@ -21,4 +21,5 @@ export const fetchUser = data => (dispatch) => {
 export const signoutUser = () => (dispatch) => {
   dispatch({ type: SIGN_OUT_USER });
   sessionStorage.removeItem('session');
+  sessionStorage.removeItem('connections');
 };
