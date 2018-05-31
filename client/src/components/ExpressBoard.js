@@ -3,11 +3,13 @@ import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { withApollo } from 'react-apollo';
-import GET_CONNECTIONS from '../queries/GET_CONNECTIONS';
 import ConnectionCard from './ConnectionCard';
 
 // Actions
 import { fetchConnections } from '../actions/connections';
+
+// Queries
+import GET_CONNECTIONS from '../queries/GET_CONNECTIONS';
 
 /**
  * Express Board component (Connections Feed)
@@ -15,8 +17,7 @@ import { fetchConnections } from '../actions/connections';
  */
 
 class ExpressBoard extends Component {
-
-  componentWillMount() {
+  componentDidMount() {
     /**
      * Check if redux store has connections
      * If not, fetch connections through graphql query

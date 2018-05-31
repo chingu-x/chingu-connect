@@ -1,4 +1,4 @@
-import { FETCH_USER, SIGN_OUT_USER } from '../actions/types';
+import { FETCH_USER, SIGN_OUT_USER, FETCH_USER_CONNECTIONS } from '../actions/types';
 
 const session = JSON.parse(sessionStorage.getItem('session'));
 
@@ -16,8 +16,16 @@ export default (state = initialState, action) => {
       };
     case SIGN_OUT_USER:
       return {
-        loggedIn: false,
+        signedIn: false,
         creds: {},
+      };
+    case FETCH_USER_CONNECTIONS:
+      return {
+        ...state,
+        connectionList: {
+          created: action.payload.created,
+          joined: action.payload.joined,
+        },
       };
     default:
       return state;
