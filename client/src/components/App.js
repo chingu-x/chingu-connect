@@ -34,6 +34,8 @@ class App extends Component {
      * Get credentials from express route
      * Pass credentials to redux store
      */
+    // TODO: GQL call User --> with no arguments
+      // gql`user(){ id, username, githubId, avatar }`
     if (!this.props.auth.creds.signedIn) {
       axios.get('http://localhost:8008/user', { withCredentials: true })
       .then((res) => {
