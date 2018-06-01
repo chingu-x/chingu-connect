@@ -13,14 +13,14 @@ const getPartner = connection => connection.getPartner();
 // ===== MUTATIONS ===== //
 const createConnection = (
     root,
-    { input: { id: ownerID, title, description, lifespan } },
-    { models: { Connection } },
+    { input: { title, description, lifespan } },
+    { models: { Connection }, authUser },
 ) => {
-  if (!ownerID || !title || !description || !lifespan) {
+  if (!title || !description || !lifespan) {
     throw new Error('Missing Required Fields');
   }
   return Connection.create({
-    ownerID,
+    ownerId: authUser.id,
     title,
     description,
     lifespan,
@@ -30,11 +30,11 @@ const createConnection = (
 
 const joinConnection = async (
     root,
-    { input: { id, partnerID } },
-    { models: { Connection } },
+    { input: { id } },
+    { models: { Connection }, authUser },
 ) => {
   try {
-    if (!id || !partnerID) throw new Error('Missing Required Fields');
+    if (!id || !authUser) throw new Error('Missing Required Fields');
 
     const connection = await Connection.findById(id);
 
@@ -42,9 +42,9 @@ const joinConnection = async (
 
     // connection.ownerID is a Mongoose Object Type, so have to change to string
     // to check against partnerID that's a string type coming from GraphQL
-    if (connection.ownerID.toString() === partnerID) throw new Error('Owner can not be same as partner');
+    if (connection.ownerID.toString() === authUser.id.toString()) throw new Error('Owner can not be same as partner');
 
-    connection.partnerID = partnerID;
+    connection.partnerID = authUser.id;
     return connection.save();
   } catch (e) { throw new Error(e); }
 };
