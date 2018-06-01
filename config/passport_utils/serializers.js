@@ -12,6 +12,12 @@ const serializeUser = (user, done) => done(null, user.id);
  * @param {string} userID user ID deserialized from the cookie
  * @callback Passport callback: found user
  */
+
+ /**
+  * client makes a request --> passes httpOnly cookie containing an encoded user object ID
+  *   encoded using our secret
+  * when it reaches deserializeUser the userID has already been decoded
+  */
 const deserializeUser = async (userID, done) => {
   const user = await User.findById(userID);
   if (user) return done(null, user);

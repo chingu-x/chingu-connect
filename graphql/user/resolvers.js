@@ -24,20 +24,25 @@
   // especially when combined with a modern ORM like mongoose
   // mongoose provides instance methods that further support the simplistic declarative syntax
 
+// root == instanceOfThisType --> userInstance --> user
 const getCreated = user => user.ownedConnections();
 const getJoined = user => user.joinedConnections();
+
+// resolverSignature(root, args, context, info)
 
 const getUser = (
   root,
   // Input Type objects are versatile because specific fields can be
     // hand selected through deconstruction in the resolvers
   { input: { id, githubID, username } }, // deconstructs the UserInput object - only the applicable fields are taken
-  { models: { User } }, // deconstructs the context object passed in app.js graphqlExpress middleware
+  { models: { User }, authUser }, // deconstructs the context object passed in app.js graphqlExpress middleware
 ) => {
-  // consider the order and reasoning when designing conditional chains - they are not random
+  // consider the order and reasoning when designing conditional chains - they are not random 
   if (id) return User.findById(id); // the id (_id) is a unique indexed key of a User document in the db collection - fastest lookup
   else if (githubID) return User.findOne({ githubID }); // also unique, not indexed, but preferred as an immutable reference
   else if (username) return User.findOne({ username }); // future abilities to change usernames makes this the last resort
+  else if (authUser) return User.findById(authUser.id); // last check so that argument searches take precedence
+  // TODO: throw error if not user is found
   return null; // since we cant rely on the implicit null returned by a failed find* lookup we have to explicitly return it ourselves
 };
 

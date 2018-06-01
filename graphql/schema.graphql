@@ -7,7 +7,7 @@
 # RootQuery def
 # TODO: find a way to import these and combine them into a root query like schema.js
 type Query {
-  user(input: UserInput!): User
+  user(input: UserInput): User
   users: [User]!
   connection(input: ConnectionInput!): Connection
   connections: [Connection]!
@@ -17,5 +17,4 @@ type Query {
 type Mutation { 
     createConnection(input: ConnectionInput!): Connection
     joinConnection(input: JoinConnectionInput!): Connection
-
 }
