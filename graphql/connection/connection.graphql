@@ -25,8 +25,10 @@ type Connection {
   partner: User
 }
 
+# TODO: refactor these Input Type defs
+# remove user id fields
 input ConnectionInput {
-  "##### **`_immutable_`** object ID of **User** document"
+  "##### **`_immutable_`** object ID of **Collection** document"
   id: ID
   "#### **`_immutable_`** **Connection** creation time in ms"
   timestamp: String
