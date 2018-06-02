@@ -42,8 +42,7 @@ const getUser = (
   else if (githubID) return User.findOne({ githubID }); // also unique, not indexed, but preferred as an immutable reference
   else if (username) return User.findOne({ username }); // future abilities to change usernames makes this the last resort
   else if (authUser) return User.findById(authUser.id); // last check so that argument searches take precedence
-  // TODO: throw error if not user is found
-  return null; // since we cant rely on the implicit null returned by a failed find* lookup we have to explicitly return it ourselves
+  throw new Error('User not found');
 };
 
 // (preference) in a case where you only need the third parameter

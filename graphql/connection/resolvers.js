@@ -4,6 +4,7 @@ const getConnection = (
   { models: { Connection } },
 ) => Connection.findById(id); // implicitly returns null when findById fails to lookup
 
+// TODO: input object for filtering
 const getConnections = (root, args, { models: { Connection } }) => Connection.find({});
 
 const getOwner = connection => connection.getOwner();
