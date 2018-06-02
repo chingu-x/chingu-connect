@@ -5,6 +5,10 @@ import GET_USER from '../queries/GET_USER';
 
 import ConnectionCard from './ConnectionCard';
 
+// no fetching should occur on this page
+// everything should be pulled from redux
+  // unless the redux store does not have the data we need
+
 /**
  * User Profile component
  * Displays previously created and joined connection cards

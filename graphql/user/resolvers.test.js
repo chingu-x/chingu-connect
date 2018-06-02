@@ -48,6 +48,7 @@ describe('User Query resolvers',
       expect(output._id).toEqual(userOne.id);
     });
 
+    // TODO: update tests using authUser
     test('returns null given an unexpected input',
     async () => {
       const args = { input: { tit: 'tat' } };

@@ -6,6 +6,10 @@ import { withApollo } from 'react-apollo';
 import GET_CONNECTIONS from '../queries/GET_CONNECTIONS';
 import ConnectionCard from './ConnectionCard';
 
+// TODO: this should only grab the recent connections
+// limited by date or number of connections
+// we will modify the backend to accept arguments that filter the Connection list returned
+
 // Actions
 import { fetchConnections } from '../actions/connections';
 
@@ -22,6 +26,10 @@ class ExpressBoard extends Component {
      * If not, fetch connections through graphql query
      * Dispatch data to redux store
      */
+
+     // get all connections (for displaying)
+     // filter and store user created and joined in redux (then their profile page no longer needs a separate call)
+      // incrementally building the users data into the redux store as appropriate
     if (!this.props.connections) {
       this.props.client.query({ query: GET_CONNECTIONS })
       .then(({ data }) => this.props.dispatch(fetchConnections(data.connections)));

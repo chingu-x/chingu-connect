@@ -8,6 +8,9 @@ import CREATE_CONNECTION from '../mutations/CREATE_CONNECTION';
 // Actions
 import { addConnection } from '../actions/connections';
 
+// when a Connection is made we push it into the users redux "created" store array
+// "" "" joined we do the same
+
 const CreateConnection = (props) => {
   const { auth, mutate } = props;
   const id = auth.creds._id;
